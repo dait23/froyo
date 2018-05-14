@@ -133,7 +133,7 @@ renderButton(){
         </DropdownToggle>
         <DropdownMenu >
          <DropdownItem header><a href="/"><i className="sl sl-icon-settings"></i> Dashboard</a></DropdownItem>
-          <DropdownItem header><a href="/"><i className="sl sl-icon-power"></i> Logout</a></DropdownItem>
+          <DropdownItem header onClick={this._logout}><i className="sl sl-icon-power"></i> Logout</DropdownItem>
         </DropdownMenu>
       </Dropdown>
       )

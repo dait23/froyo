@@ -16241,3 +16241,46 @@ div.layout-style {
         display: none
     }
 }
+
+
+.btn-secondary {
+    color: #444 !important;
+    background-color: #fff !important;
+    border-color: #fff !important;
+    font-size: 14px !important;
+}
+
+.btn {
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 0px solid transparent !important;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: none !important;
+}
+
+.dropdown-header {
+    display: block;
+    padding: .5rem 1.5rem;
+    margin-bottom: 0;
+    font-size: 14px;
+    color: #6c757d;
+    white-space: nowrap;
+}
+
+.dropdown-header a, .dropdown-header a:hover {
+    display: block;
+   
+    font-size: 14px;
+    color: #6c757d;
+    white-space: nowrap;
+}
