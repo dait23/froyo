@@ -1,0 +1,6 @@
+{
+  "name": "FakeDelay",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./FakeDelay.js"
+}
