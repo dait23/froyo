@@ -2,14 +2,7 @@
 
 import React from 'react'
 import { Link, withRouter } from 'react-router-dom'
-import { 
-  Button,
-  Dropdown,
-  DropdownMenu,
-  DropdownItem, 
-    DropdownToggle
-
-} from 'reactstrap';
+import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
 import { graphql, compose } from 'react-apollo'
 import gql from 'graphql-tag'
@@ -112,21 +105,23 @@ class Header extends React.Component {
 
 
 renderButton(){
+
+   const pic = "https://res.cloudinary.com/nomadic-id/image/facebook/c_scale,r_50,w_50/" + this.props.data.loggedInUserFb.facebookUserId + ".jpg"
  
   if (window.localStorage.getItem('uid') !== null && window.localStorage.getItem('space') !== null ) {
 
      return(
         
-        <div class="user-menu">
-                        <div class="user-name"><span><img src="images/dashboard-avatar.jpg" alt="" /></span>My Account</div>
-                        <ul>
-                          <li><a href="dashboard.html"><i class="sl sl-icon-settings"></i> Dashboard</a></li>
-                          <li><a href="dashboard-messages.html"><i class="sl sl-icon-envelope-open"></i> Messages</a></li>
-                          <li><a href="dashboard-bookings.html"><i class="fa fa-calendar-check-o"></i> Bookings</a></li>
-                          <li><a href="index-2.html"><i class="sl sl-icon-power"></i> Logout</a></li>
-                        </ul>
-                      </div>
-
+        <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+         <img src={pic} alt="avatar"  style={{width:'50px', height:'50px', borderRadius:'100%'}}/>
+        <DropdownToggle caret>
+         My Account
+        </DropdownToggle>
+        <DropdownMenu >
+         <DropdownItem header><a href="/"><i className="sl sl-icon-settings"></i> Dashboard</a></DropdownItem>
+          <DropdownItem header><a href="/"><i className="sl sl-icon-power"></i> Logout</a></DropdownItem>
+        </DropdownMenu>
+      </Dropdown>
       )
 
   }else{
@@ -358,6 +353,7 @@ const LOGGED_IN_USER = gql`
     loggedInUserFb {
       id
       jabatan
+      facebookUserId
     
     }
   }
