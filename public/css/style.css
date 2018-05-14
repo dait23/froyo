@@ -16284,3 +16284,25 @@ div.layout-style {
     color: #6c757d;
     white-space: nowrap;
 }
+
+.dropdown-item {
+    display: block;
+    width: 100%;
+    padding: .5rem 1.5rem !important;
+    clear: both;
+     font-size: 14px;
+    font-weight: 400;
+   color: #6c757d !important;
+    text-align: inherit;
+    white-space: nowrap;
+    background-color: transparent !important;
+    border: 0;
+}
+
+.dropdown-item a, .dropdown-item a:hover
+{
+ 
+   color: #6c757d;
+   text-decoration: none !important;
+   background-color: transparent !important;
+}

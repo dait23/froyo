@@ -133,8 +133,8 @@ renderButton(){
          My Account
         </DropdownToggle>
         <DropdownMenu >
-         <a href="/me/dashboard"><DropdownItem header>Dashboard</DropdownItem></a>
-          <DropdownItem header><a onClick={this._logout} style={{cursor:'pointer'}}> Logout</a></DropdownItem>
+         <a href="/me/dashboard"><DropdownItem>Dashboard</DropdownItem></a>
+          <DropdownItem ><a onClick={this._logout} style={{cursor:'pointer'}}> Logout</a></DropdownItem>
         </DropdownMenu>
       </Dropdown>
       )
