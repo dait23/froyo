@@ -3,13 +3,14 @@
 import React from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
-import 'bootstrap/dist/css/bootstrap.css';
+// import 'bootstrap/dist/css/bootstrap.css';
 import { graphql, compose } from 'react-apollo'
 import gql from 'graphql-tag'
 
 const FACEBOOK_APP_ID = '160433624650514'
 const FACEBOOK_API_VERSION = 'v2.12' // e.g. v2.10
 
+// import 'bootstrap/dist/css/bootstrap.css';
 class Header extends React.Component {
  constructor(props) {
     super(props);
