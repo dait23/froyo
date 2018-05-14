@@ -75,6 +75,7 @@ class Header extends React.Component {
     return this.props.data.loggedInUserFb && 
       this.props.data.loggedInUserFb.id && 
       localStorage.setItem('uid', this.props.data.loggedInUserFb.id);
+      localStorage.setItem('urole', this.props.data.loggedInUserFb.jabatan);
      
 
 
@@ -133,7 +134,7 @@ renderButton(){
         </DropdownToggle>
         <DropdownMenu >
          <DropdownItem header><a href="/me/dashboard">Dashboard</a></DropdownItem>
-          <DropdownItem header><a onClick={this._logout} > Logout</a></DropdownItem>
+          <DropdownItem header><a onClick={this._logout} style={{cursor:'pointer'}}> Logout</a></DropdownItem>
         </DropdownMenu>
       </Dropdown>
       )
