@@ -18,7 +18,7 @@ class Popular extends Component {
 
 					<div className="col-md-4">
                      
-                     <div className="carousel-item">
+                     <div className="carousel-itemx">
 							<a href="listings-single-page.html" className="listing-item-container">
 								<div className="listing-item">
 									<img src="images/listing-item-01.jpg" alt="" />
@@ -40,7 +40,7 @@ class Popular extends Component {
 
 					<div className="col-md-4">
                      
-                     <div className="carousel-item">
+                     <div className="carousel-itemx">
 							<a href="listings-single-page.html" className="listing-item-container">
 								<div className="listing-item">
 									<img src="images/listing-item-02.jpg" alt="" />
@@ -62,7 +62,7 @@ class Popular extends Component {
 
 					<div className="col-md-4">
 					
-						<div className="carousel-item">
+						<div className="carousel-itemx">
 							<a href="listings-single-page.html" className="listing-item-container">
 								<div className="listing-item">
 									<img src="images/listing-item-03.jpg" alt="" />
@@ -84,7 +84,7 @@ class Popular extends Component {
 					</div>
 					<div className="col-md-4">
 					
-						<div className="carousel-item">
+						<div className="carousel-itemx">
 							<a href="listings-single-page.html" className="listing-item-container">
 								<div className="listing-item">
 									<img src="images/listing-item-04.jpg" alt="" />
@@ -106,7 +106,7 @@ class Popular extends Component {
 					</div>
 					<div className="col-md-4">
 					
-						<div className="carousel-item">
+						<div className="carousel-itemx">
 							<a href="listings-single-page.html" className="listing-item-container">
 								<div className="listing-item">
 									<img src="images/listing-item-05.jpg" alt="" />
@@ -128,7 +128,7 @@ class Popular extends Component {
 					</div>
 					<div className="col-md-4">
 					
-						<div className="carousel-item">
+						<div className="carousel-itemx">
 							<a href="listings-single-page.html" className="listing-item-container">
 								<div className="listing-item">
 									<img src="images/listing-item-06.jpg" alt="" />

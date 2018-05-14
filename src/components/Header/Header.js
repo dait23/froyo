@@ -120,14 +120,14 @@ class Header extends React.Component {
 
 renderButton(){
 
-   const pic = "https://res.cloudinary.com/nomadic-id/image/facebook/c_scale,r_50,w_50/" + this.props.data.loggedInUserFb.facebookUserId + ".jpg"
+   const pic = "https://res.cloudinary.com/nomadic-id/image/facebook/c_scale,r_40,w_40/" + this.props.data.loggedInUserFb.facebookUserId + ".jpg"
  
   if (window.localStorage.getItem('uid') !== null && window.localStorage.getItem('space') !== null ) {
 
      return(
         
         <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-         <img src={pic} alt="avatar"  style={{width:'50px', height:'50px', borderRadius:'100%'}}/>
+         <img src={pic} alt="avatar"  style={{width:'40px', height:'40px', borderRadius:'100%'}}/>
         <DropdownToggle caret>
          My Account
         </DropdownToggle>
