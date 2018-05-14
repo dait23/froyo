@@ -133,7 +133,7 @@ renderButton(){
          My Account
         </DropdownToggle>
         <DropdownMenu >
-         <DropdownItem header><a href="/me/dashboard">Dashboard</a></DropdownItem>
+         <a href="/me/dashboard"><DropdownItem header>Dashboard</DropdownItem></a>
           <DropdownItem header><a onClick={this._logout} style={{cursor:'pointer'}}> Logout</a></DropdownItem>
         </DropdownMenu>
       </Dropdown>
@@ -160,7 +160,7 @@ renderButton(){
      if (this.props.data.loading) {
       return ( <div></div>)
            }
-    localStorage.setItem('urole', this.props.data.loggedInUserFb.jabatan);
+    
    
     return (
        <div>
