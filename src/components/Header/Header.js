@@ -165,7 +165,7 @@ renderButton(){
        <div>
       <header id="header-container">
 
-        <div id="header">
+        <div id="header" className="cloned sticky">
           <div className="container">
             
             <div className="left-side">
@@ -267,7 +267,7 @@ renderButton(){
             <div>
       <header id="header-container">
 
-        <div id="header">
+        <div id="header" className="cloned sticky">
           <div className="container">
             
             <div className="left-side">
