@@ -100,7 +100,7 @@ class Header extends React.Component {
            }
    if (this._isLoggedIn() ) {
 
-       localStorage.setItem('urole', this.props.data.loggedInUserFb.jabatan);
+       
 
       return this.renderLoggedIn()
     } else {
@@ -119,7 +119,7 @@ class Header extends React.Component {
 
 
 renderButton(){
-   
+
 
    const pic = "https://res.cloudinary.com/nomadic-id/image/facebook/c_scale,r_40,w_40/" + this.props.data.loggedInUserFb.facebookUserId + ".jpg"
  
@@ -160,7 +160,7 @@ renderButton(){
      if (this.props.data.loading) {
       return ( <div></div>)
            }
-
+    localStorage.setItem('urole', this.props.data.loggedInUserFb.jabatan);
    
     return (
        <div>
