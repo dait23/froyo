@@ -241,7 +241,7 @@ renderButton(){
 
                     <form method="post" className="register">
                       
-                       <a href="#" className="button medium" style={{background:'#4a6d9d'}}> <i class="fa fa-fw">&#xf230;</i>
+                       <a href="#" className="button medium" style={{background:'#4a6d9d', color:'#fff'}}> <i class="fa fa-fw">&#xf230;</i>
                         Facebook Login</a>
         
                     </form>
