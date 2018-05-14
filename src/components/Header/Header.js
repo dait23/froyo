@@ -11,7 +11,21 @@ const FACEBOOK_APP_ID = '160433624650514'
 const FACEBOOK_API_VERSION = 'v2.12' // e.g. v2.10
 
 class Header extends React.Component {
+ constructor(props) {
+    super(props);
 
+    this.toggle = this.toggle.bind(this);
+    this.state = {
+      dropdownOpen: false
+    };
+  }
+
+  toggle() {
+    this.setState({
+      dropdownOpen: !this.state.dropdownOpen
+    });
+  }
+  
   
   componentDidMount() {
     this._initializeFacebookSDK()
