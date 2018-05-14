@@ -142,7 +142,7 @@ renderButton(){
     localStorage.removeItem('uid');
   return(
         
-         <a onClick={this._handleFBLogin} className="button" style={{background:'#4a6d9d'}}> <i className="fa fa-fw">&#xf230;</i>
+         <a onClick={this._handleFBLogin} className="button" style={{background:'#4a6d9d', color:'#fff'}}> <i className="fa fa-fw">&#xf230;</i>
                         Facebook Login</a>
 
       )
@@ -230,7 +230,7 @@ renderButton(){
 
                     
                        
-                        <a href="#" className="button medium" style={{background:'#4a6d9d'}}> <i class="fa fa-fw">&#xf230;</i>
+                        <a href="#" className="button medium" style={{background:'#4a6d9d', color:'#fff'}}> <i class="fa fa-fw">&#xf230;</i>
                         Facebook Login</a>
                   
                       
