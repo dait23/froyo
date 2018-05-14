@@ -74,7 +74,7 @@ class Header extends React.Component {
 
     return this.props.data.loggedInUserFb && 
       this.props.data.loggedInUserFb.id && 
-      localStorage.setItem('uid', this.props.data.loggedInUserFb.id);
+      localStorage.setItem('uid', this.props.data.loggedInUserFb.id); &&
       localStorage.setItem('urole', this.props.data.loggedInUserFb.jabatan);
      
 
