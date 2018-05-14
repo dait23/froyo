@@ -74,8 +74,7 @@ class Header extends React.Component {
 
     return this.props.data.loggedInUserFb && 
       this.props.data.loggedInUserFb.id && 
-      localStorage.setItem('uid', this.props.data.loggedInUserFb.id); &&
-      localStorage.setItem('urole', this.props.data.loggedInUserFb.jabatan);
+      localStorage.setItem('uid', this.props.data.loggedInUserFb.id);
      
 
 
@@ -120,6 +119,7 @@ class Header extends React.Component {
 
 
 renderButton(){
+   localStorage.setItem('urole', this.props.data.loggedInUserFb.jabatan);
 
    const pic = "https://res.cloudinary.com/nomadic-id/image/facebook/c_scale,r_40,w_40/" + this.props.data.loggedInUserFb.facebookUserId + ".jpg"
  
