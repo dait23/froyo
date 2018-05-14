@@ -3,7 +3,7 @@
 import React from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
-import 'bootstrap/dist/css/bootstrap.css';
+// import 'bootstrap/dist/css/bootstrap.css';
 import { graphql, compose } from 'react-apollo'
 import gql from 'graphql-tag'
 
