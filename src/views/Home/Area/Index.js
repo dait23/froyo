@@ -1,5 +1,10 @@
 import React, {Component} from 'react';
 
+import Selatan from './Selatan';
+import Utara from './Utara';
+import Pusat from './Pusat';
+import Barat from './Barat';
+
 class Area extends Component {
   render() {
     return (
@@ -7,53 +12,28 @@ class Area extends Component {
 			<div className="row">
 
 				<div className="col-md-12">
-					<h3 className="headline centered margin-bottom-35 margin-top-70">Popular Cities <span>Browse listings in popular places</span></h3>
+					<h3 className="headline centered margin-bottom-35 margin-top-70">Popular Area <span>Browse listings in popular places</span></h3>
 				</div>
 				
-				<div className="col-md-4">
-					<a href="">
-					  <img className="img-box" src="images/popular-location-01.jpg" alt="" />
-						<div className="img-box-content visible">
-							<h4>New York </h4>
-							<span>14 Listings</span>
-						</div>
-					</a>
+				<div className="col-md-5">
+					<Selatan />
 
 				</div>	
 					
-				<div className="col-md-8">
+				<div className="col-md-7">
 
-					<a href="listings-list-with-sidebar.html">
-					   <img className="img-box" src="images/popular-location-02.jpg" alt="" />
-						<div className="img-box-content visible">
-							<h4>Los Angeles</h4>
-							<span>24 Listings</span>
-						</div>
-					</a>
+					<Utara />
 
 				</div>	
 
-				<div className="col-md-8">
-					<a href="listings-list-with-sidebar.html">
-					<img className="img-box" src="images/popular-location-03.jpg" alt="" />
-						<div className="img-box-content visible">
-							<h4>San Francisco </h4>
-							<span>12 Listings</span>
-						</div>
-					</a>
+				<div className="col-md-6">
+					<Pusat />
 
 				</div>	
 					
-				<div className="col-md-4">
+				<div className="col-md-6">
 
-					<a href="listings-list-with-sidebar.html">
-					<img className="img-box" src="images/popular-location-04.jpg" alt="" />
-						<div className="img-box-content visible">
-							<h4>Miami</h4>
-							<span>9 Listings</span>
-						</div>
-					</a>
-
+					<Barat />
 				</div>
 
 			</div>

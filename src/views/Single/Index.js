@@ -1,46 +1,457 @@
 import React, {Component} from 'react';
 
+import { Link} from 'react-router-dom'
+import {MainApi, Cloudinary_Name} from '../Api/';
+import {Image} from 'cloudinary-react';
+import PropTypes from 'prop-types';
+import MetaTags from 'react-meta-tags';
+import Gallery from 'react-photo-gallery';
+import Lightbox from 'react-images';
+import Maps from './Map'
+import Share from './Share';
+// import formatMoney from 'accounting-js/lib/formatMoney.js'
+// // import Street from './Street'
+import ReactPlaceholder from 'react-placeholder';
+import "react-placeholder/lib/reactPlaceholder.css";
 
+const photos = [
+  { src: 'https://res.cloudinary.com/spazeeid/image/upload/v1526409104/listing-image-high_ppzl6t.jpg', width: 3, height: 2.5 },
+  { src: 'https://res.cloudinary.com/spazeeid/image/upload/g_center/v1526411324/tangcity-listing-image2_psyjfv.jpg', width: 4, height: 2.5 },
+  { src: 'https://res.cloudinary.com/spazeeid/image/upload/g_center/v1526411820/tangcity-feature-image_mroqz4.jpg', width: 3, height: 2.5 }
+];
 
 class Single extends Component {
+
+ static propTypes = {
+    router: PropTypes.object
+  }
+
+
+  constructor(props) {
+    super(props)
+    this.state = { 
+     facilities:[],
+     collabs:[],
+     inclusions:[],
+     exclusions:[],
+     spaces:[],
+     currentImage: 0,
+      data:'',
+      loading: true,
+    }
+
+    this.closeLightbox = this.closeLightbox.bind(this);
+    this.openLightbox = this.openLightbox.bind(this);
+    this.gotoNext = this.gotoNext.bind(this);
+    this.gotoPrevious = this.gotoPrevious.bind(this);
+  
+  }
+
+  openLightbox(event, obj) {
+    this.setState({
+      currentImage: obj.index,
+      lightboxIsOpen: true,
+
+      });
+  }
+  closeLightbox() {
+    this.setState({
+      currentImage: 0,
+      lightboxIsOpen: false,
+    });
+  }
+  gotoPrevious() {
+    this.setState({
+      currentImage: this.state.currentImage - 1,
+    });
+  }
+  gotoNext() {
+    this.setState({
+      currentImage: this.state.currentImage + 1,
+    });
+  }
+
+   
+////////////////// did mount 
+  componentDidMount() {
+    var that = this;
+    that.getData();
+  }
+////////////////////////
+
+////////////////////get data
+
+  getData(){
+     var that = this;
+     that.setState({
+          loading: true
+      });
+     var fetch = require('graphql-fetch')(MainApi)
+
+          var query = `
+            query Partner($slug: String) {
+              Partner(slug: $slug){
+                id
+                uId
+			    name
+			    slug
+			    address
+			    description
+			    nearby
+			    imageUrl
+			    imageId
+			    read
+			    lat
+			    lng
+			    spaces{
+			      title
+			      price1
+			      slug
+			       wide{
+				        size
+				      }
+			    }
+			    category{
+			      name
+			    }
+			    area{
+			      name
+			    }
+			    facilities{
+			      name
+			    }
+			    inclusions{
+			      name
+			    }
+			    exclusions{
+			      name
+			    }
+			   collabs{
+			    name
+			  }
+              
+             
+             
+              }
+            }
+          `
+          var queryVars = {
+            slug: this.props.match.params.slug
+          }
+          var opts = {
+            // custom fetch options
+          }
+
+
+          fetch(query, queryVars, opts).then(function (results) {
+
+            //console.log(results)
+            if (results.errors) {
+             // console.log('cccc')
+              //...
+             // window.location= "/";
+            }
+            //var BlogCategory = results.data.BlogCategory
+
+
+           if ( results.data.Partner == null){
+
+               window.location= "/404";
+
+           }else{
+
+              that.setState({
+	              data: results.data.Partner,
+	              id:results.data.Partner.id,
+	              uid:results.data.Partner.uid,
+	              name:results.data.Partner.name,
+	              read:results.data.Partner.read,
+	              address:results.data.Partner.address,
+	              slug:results.data.Partner.slug,
+	              description:results.data.Partner.description,
+	              nerby:results.data.Partner.nearby,
+	              imageId:results.data.Partner.imageId,
+	              imageUrl:results.data.Partner.imageUrl,
+	              lng:results.data.Partner.lng,
+	              lat:results.data.Partner.lat,
+	              facilities:results.data.Partner.facilities,
+	              category:results.data.Partner.category.name,
+	              area:results.data.Partner.area.name,
+	              collabs:results.data.Partner.collabs,
+	              inclusions:results.data.Partner.inclusions,
+	              exclusions:results.data.Partner.exclusions,
+	              spaces:results.data.Partner.spaces,
+	              loading:false
+             });
+
+            //console.log(that.state.facebookUserId);
+
+           }
+
+             that.onRead();
+           
+           
+          })
+ 
+
+  }
+  //////////////////
+
+  onRead() {
+
+     var that = this;
+     var fetch = require('graphql-fetch')(MainApi)
+
+          var query = `
+            mutation updatePartner ($id: ID!, $read: Int){
+              updatePartner(id: $id, read: $read){
+                id           
+              }
+            }
+          `
+          var queryVars = {
+            id: this.state.id,
+            read: parseInt(this.state.read + 1),
+          }
+          var opts = {
+            // custom fetch options
+          }
+
+
+          fetch(query, queryVars, opts).then(function (results) {
+            if (results.errors) {
+              //...
+              return
+            }
+            //var BlogCategory = results.data.BlogCategory
+
+             //that.getData();
+            //...
+          })
+
+
+  } 
+  /////////////////////////
+
+renderFacility(){
+	 const facilities = this.state.facilities || [ ]
+
+	 if(facilities == ''){
+
+        return(
+
+              <p>No Facility Yet</p>
+
+        	)
+
+	 }else{
+
+   return(
+            <ul className="listing-features checkboxes margin-top-0">
+      
+                          {facilities.map((facility, i) => (
+
+                            <li key={i}>{facility.name}</li>
+                            
+                          ))}
+
+             </ul>
+
+   	)
+   }
+
+}
+
+renderInc(){
+	 const inclusions = this.state.inclusions || [ ]
+
+	 if(inclusions == ''){
+
+        return(
+
+              <p>No Inclusion Yet</p>
+
+        	)
+
+	 }else{
+
+   return(
+            <ul className="listing-features checkboxes margin-top-0">
+      
+                          {inclusions.map((inc, i) => (
+
+                            <li key={i}>{inc.name}</li>
+                            
+                          ))}
+
+             </ul>
+
+   	)
+   }
+
+}
+
+
+renderSpace(){
+
+ const spaces = this.state.spaces || [ ]
+
+   if(spaces == ''){
+
+        return(
+
+              <p>No Spaces Available</p>
+
+        	)
+
+	 }else{
+
+
+   return(
+            <div className="row">
+      
+                          {spaces.map((space, i) => (
+
+                           <div className="col-lg-6 col-md-12">
+							<a href="" className="listing-item-container">
+								<div className="listing-item">
+									<img src="https://res.cloudinary.com/spazeeid/image/upload/v1526409104/listing-image-high_ppzl6t.jpg" alt={space.title} />
+
+									<div className="listing-badge now-open">Now Open</div>
+									
+									<div className="listing-item-content">
+										<span className="tag">{space.wide.size} M </span>
+										<h3>{space.title} <i className="verified-icon"></i></h3>
+										<span>Rp. {space.price1}</span>
+									</div>
+									<span className="like-icon"></span>
+								</div>
+								
+							</a>
+						 </div>
+                            
+                          ))}
+
+             </div>
+
+   	)
+  }
+
+
+
+}
+
+
+renderEx(){
+	 const exclusions = this.state.exclusions || [ ]
+
+    if(exclusions == ''){
+
+        return(
+
+              <p>No Exclusion Yet</p>
+
+        	)
+
+	 }else{
+
+
+   return(
+            <ul className="listing-features checkboxes margin-top-0">
+      
+                          {exclusions.map((ex, i) => (
+
+                            <li key={i}>{ex.name}</li>
+                            
+                          ))}
+
+             </ul>
+
+   	)
+  }
+}
+
+
+///////////////////////
+
+renderDes(){
+
+	if(this.state.description == ''){
+
+		return(
+             
+             <p>
+               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in pulvinar neque. Nulla finibus lobortis pulvinar. Donec a consectetur nulla. Nulla posuere sapien vitae lectus suscipit, et pulvinar nisi tincidunt. Aliquam erat volutpat. Curabitur convallis fringilla diam sed aliquam. Sed tempor iaculis massa faucibus feugiat. In fermentum facilisis massa, a consequat purus viverra.
+             </p>
+
+			)
+
+
+	}else{
+
+     return(
+
+    <p>
+     {this.state.description}
+    </p>
+
+     )
+
+	}
+}
+
+//////////////////////////////
+
   render() {
+  	if (this.state.loading) {
+      return (
+
+      	<div></div>
+
+      	)
+
+    } 
     return (
       <div>
-	      <div className="listing-slider mfp-gallery-container margin-bottom-0">
-			<a href="images/single-listing-01.jpg" data-background-image="images/single-listing-01.jpg" className="item mfp-gallery" title="Title 1"><img src="images/single-listing-01.jpg" className="item mfp-gallery" alt=""/></a>
-			<a href="images/single-listing-01.jpg" data-background-image="images/single-listing-01.jpg" className="item mfp-gallery" title="Title 1"><img src="images/single-listing-02.jpg" className="item mfp-gallery" alt=""/></a>
-			<a href="images/single-listing-01.jpg" data-background-image="images/single-listing-01.jpg" className="item mfp-gallery" title="Title 1"><img src="images/single-listing-01.jpg" className="item mfp-gallery" alt=""/></a>
-			<a href="images/single-listing-01.jpg" data-background-image="images/single-listing-01.jpg" className="item mfp-gallery" title="Title 1"><img src="images/single-listing-01.jpg" className="item mfp-gallery" alt=""/></a>
-			<a href="images/single-listing-01.jpg" data-background-image="images/single-listing-01.jpg" className="item mfp-gallery" title="Title 1"><img src="images/single-listing-01.jpg" className="item mfp-gallery" alt=""/></a>
-		 </div>
+	      
+		   <Gallery photos={photos}  onClick={this.openLightbox} className="listing-slider mfp-gallery-container margin-bottom-0"/>
+		   <Lightbox images={photos}
+	          onClose={this.closeLightbox}
+	          onClickPrev={this.gotoPrevious}
+	          onClickNext={this.gotoNext}
+	          currentImage={this.state.currentImage}
+	          isOpen={this.state.lightboxIsOpen}
+	        />
+
+		
 
 
-		 <div className="container">
+		 <div className="container padding-bottom-50">
 			<div className="row sticky-wrapper">
 				<div className="col-lg-8 col-md-8 padding-right-30">
 
 				  <div id="titlebar" className="listing-titlebar">
 					<div className="listing-titlebar-title">
-						<h2>Burger House <span className="listing-tag">Eat & Drink</span></h2>
+						<h2>{this.state.name} <span className="listing-tag">{this.state.category}</span> </h2>
 						<span>
-							<a href="#listing-location" className="listing-address">
-								<i className="fa fa-map-marker"></i>
-								2726 Shinn Street, New York
+							<a className="listing-address">
+								
+								{this.state.address}
+                                
 							</a>
 						</span>
+
 						<div className="star-rating" data-rating="5">
-							<div className="rating-counter"><a href="#listing-reviews">(31 reviews)</a></div>
+							<a style={{color:'#1B9F6A'}}><i className="fa fa-map-marker"></i> {this.state.area}</a>
 						</div>
+						
 					</div>
 				</div>
 
 				<div id="listing-nav" className="listing-nav-container">
 					<ul className="listing-nav">
-						<li><a href="#listing-overview" className="active">Overview</a></li>
-						<li><a href="#listing-pricing-list">Pricing</a></li>
-						<li><a href="#listing-location">Location</a></li>
-						<li><a href="#listing-reviews">Reviews</a></li>
-						<li><a href="#add-review">Add Review</a></li>
+						<li><a href="#listing-overview" className="active">Description</a></li>
+						
 					</ul>
 				</div>
 
@@ -48,89 +459,59 @@ class Single extends Component {
 
 				
 
-					<p>
-						Ut euismod ultricies sollicitudin. Curabitur sed dapibus nulla. Nulla eget iaculis lectus. Mauris ac maximus neque. Nam in mauris quis libero sodales eleifend. Morbi varius, nulla sit amet rutrum elementum, est elit finibus tellus, ut tristique elit risus at metus.
-					</p>
+					{this.renderDes()}
 
-					<p>
-						 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in pulvinar neque. Nulla finibus lobortis pulvinar. Donec a consectetur nulla. Nulla posuere sapien vitae lectus suscipit, et pulvinar nisi tincidunt. Aliquam erat volutpat. Curabitur convallis fringilla diam sed aliquam. Sed tempor iaculis massa faucibus feugiat. In fermentum facilisis massa, a consequat purus viverra.
-					</p>
+					
+				<h3 className="listing-desc-headline">Fasilitas</h3>
+					{this.renderFacility()}
 
-					<h3 className="listing-desc-headline">Amenities</h3>
-					<ul className="listing-features checkboxes margin-top-0">
-						<li>Elevator in building</li>
-						<li>Friendly workspace</li>
-						<li>Instant Book</li>
-						<li>Wireless Internet</li>
-						<li>Free parking on premises</li>
-						<li>Free parking on street</li>
-					</ul>
+				<h3 className="listing-desc-headline">Inclusion</h3>
+					{this.renderInc()}
+
+			    <h3 className="listing-desc-headline">Exclusion</h3>
+					{this.renderEx()}
+
+
 				</div>
 
 
-				<div id="listing-pricing-list" className="listing-section">
-				   <h3 class="listing-desc-headline margin-top-70 margin-bottom-30">Pricing</h3>
-
-				   <div className="show-more">
-					 <div className="pricing-list-container">
-
-					     <h4>Burgers</h4>
-							<ul>
-								<li>
-									<h5>Classic Burger</h5>
-									<p>Beef, salad, mayonnaise, spicey relish, cheese</p>
-									<span>$6</span>
-								</li>
-								<li>
-									<h5>Cheddar Burger</h5>
-									<p>Cheddar cheese, lettuce, tomato, onion, dill pickles</p>
-									<span>$6</span>
-								</li>
-								<li>
-									<h5>Veggie Burger</h5>
-									<p>Panko crumbed and fried, grilled peppers and mushroom</p>
-									<span>$6</span>
-								</li>
-								<li>
-									<h5>Chicken Burger</h5>
-									<p>Cheese, chicken fillet, avocado, bacon, tomatoes, basil</p>
-									<span>$6</span>
-								</li>
-							</ul>
-
-						<h4>Drinks</h4>
-						<ul>
-							<li>
-								<h5>Frozen Shake</h5>
-								<span>$4</span>
-							</li>
-							<li>
-								<h5>Orange Juice</h5>
-								<span>$4</span>
-							</li>
-							<li>
-								<h5>Beer</h5>
-								<span>$4</span>
-							</li>
-							<li>
-								<h5>Water</h5>
-								<span>Free</span>
-							</li>
-						</ul>
-
-
-					 </div>
-				   </div>
-				   <a href="#" className="show-more-button" data-more-title="Show More" data-less-title="Show Less"><i className="fa fa-angle-down"></i></a>
-				  </div>
 
 				  <div id="listing-location" className="listing-section">
-					<h3 className="listing-desc-headline margin-top-60 margin-bottom-30">Location</h3>
 
-					<div id="singleListingMap-container">
-						<div id="singleListingMap" data-latitude="40.70437865245596" data-longitude="-73.98674011230469" data-map-icon="im im-icon-Hamburger"></div>
-						<a href="#" id="streetView">Street View</a>
+					<h3 className="listing-desc-headline margin-top-60 margin-bottom-30">Location Map</h3>
+
+					<div id="singleListing Map-container">
+						<div id="singleListingMap">
+
+                       <Maps 
+
+                        lat={this.state.lat}
+                        lng={this.state.lng}
+                        name={this.state.name}
+                       />
+
+						</div>
+						
 					</div>
+
+
+
+				  <div id="listing-location" className="listing-section">
+
+					<h3 className="listing-desc-headline margin-top-60 margin-bottom-30">{this.state.name} space available </h3>
+
+					{this.renderSpace()}
+
+				  </div>
+
+
+
+					
+
+
+
+
+
 				</div>
 
 				 
@@ -146,16 +527,11 @@ class Single extends Component {
 		                 <div className="verified-badge with-tip" data-tip-content="Listing has been verified and belongs the business owner or manager.">
 							<i className="sl sl-icon-check"></i> Verified Listing
 						</div>
-						 <div className="boxed-widget booking-widget margin-top-35">
-							<h3><i className="fa fa-calendar-check-o "></i> Booking</h3>
-							<div className="row with-forms  margin-top-0">
+						 <div className="boxed-widget booking-widget">
+							
+							
 
-							   <a href="pages-booking.html" className="button book-now fullwidth margin-top-5">Book Now</a>
-
-							    
-							</div>
-
-							<div className="boxed-widget opening-hours margin-top-35">
+							<div className="boxed-widget opening-hours">
 								<div className="listing-badge now-open">Now Open</div>
 								<h3><i className="sl sl-icon-clock"></i> Opening Hours</h3>
 								<ul>
@@ -171,33 +547,20 @@ class Single extends Component {
                             
                             <div className="boxed-widget margin-top-35">
 								<div className="hosted-by-title">
-									<h4><span>Hosted by</span> <a href="pages-user-profile.html">Tom Perrin</a></h4>
-									<a href="pages-user-profile.html" className="hosted-by-avatar"><img src="images/dashboard-avatar.jpg" alt="" /></a>
+									<h4><span>Hosted by</span> <a><img src="https://res.cloudinary.com/spazeeid/image/upload/lhukm16yizg5dl58e2vi" alt="logo" /></a></h4>
+									
 								</div>
-								<ul className="listing-details-sidebar">
-									<li><i className="sl sl-icon-phone"></i> (123) 123-456</li>
-
-									<li><i className="fa fa-envelope-o"></i> <a href="#"><span className="__cf_email__" data-cfemail="01756e6c416479606c716d642f626e6c">[email&#160;protected]</span></a></li>
-								</ul>
+								
 
 								<ul className="listing-details-sidebar social-profiles">
 									<li><a href="#" className="facebook-profile"><i className="fa fa-facebook-square"></i> Facebook</a></li>
-									<li><a href="#" className="twitter-profile"><i className="fa fa-twitter"></i> Twitter</a></li>
+									<li><a href="#" className="instagram-profile"><i className="fa fa-instagram"></i> Instagram</a></li>
 								
 								</ul>
 
 								
-								<div id="small-dialog" className="zoom-anim-dialog mfp-hide">
-									<div className="small-dialog-header">
-										<h3>Send Message</h3>
-									</div>
-									<div className="message-reply margin-top-0">
-										<textarea cols="40" rows="3" placeholder="Your message to Tom"></textarea>
-										<button className="button">Send Message</button>
-									</div>
-								</div>
 
-								<a href="#small-dialog" class="send-message-to-owner button popup-with-zoom-anim"><i className="sl sl-icon-envelope-open"></i> Send Message</a>
+								
 							</div>
 
 
@@ -207,12 +570,10 @@ class Single extends Component {
 
 								
 									<ul className="share-buttons margin-top-40 margin-bottom-0">
-										<li><a className="fb-share" href="#"><i className="fa fa-facebook"></i> Share</a></li>
-										<li><a className="twitter-share" href="#"><i className="fa fa-twitter"></i> Tweet</a></li>
-										<li><a className="gplus-share" href="#"><i className="fa fa-google-plus"></i> Share</a></li>
+										<Share />
 										
 									</ul>
-									<div class="clearfix"></div>
+									<div className="clearfix"></div>
 							</div>
 
 

@@ -10,7 +10,6 @@ import gql from 'graphql-tag'
 const FACEBOOK_APP_ID = '160433624650514'
 const FACEBOOK_API_VERSION = 'v2.12' // e.g. v2.10
 
-// import 'bootstrap/dist/css/bootstrap.css';
 class Header extends React.Component {
  constructor(props) {
     super(props);
@@ -134,8 +133,8 @@ renderButton(){
          My Account
         </DropdownToggle>
         <DropdownMenu >
-         <a href="/me/dashboard"><DropdownItem>Dashboard</DropdownItem></a>
-          <DropdownItem ><a onClick={this._logout} style={{cursor:'pointer'}}> Logout</a></DropdownItem>
+         <DropdownItem header><a href="/me/dashboard">Dashboard</a></DropdownItem>
+          <DropdownItem header><a onClick={this._logout} style={{cursor:'pointer'}}> Logout</a></DropdownItem>
         </DropdownMenu>
       </Dropdown>
       )
@@ -144,9 +143,9 @@ renderButton(){
     localStorage.removeItem('uid');
   return(
         
-         <a onClick={this._handleFBLogin} className="button" style={{background:'#4a6d9d', color:'#fff'}}> <i className="fa fa-fw">&#xf230;</i>
+        
+  <a onClick={this._handleFBLogin} className="button" style={{background:'#4a6d9d', color:'#fff'}}> <i className="fa fa-fw">&#xf230;</i>
                         Facebook Login</a>
-
       )
 
   }
@@ -190,7 +189,7 @@ renderButton(){
                     
                   </li>
 
-                  <li><a href="#">Top Listing</a>
+                  <li><a href="/listing">Listing</a>
                     
                   </li>
 
@@ -288,11 +287,11 @@ renderButton(){
               <nav id="navigation" className="style-1">
                 <ul id="responsive">
 
-                  <li><a className="current" href="#">Home</a>
+                  <li><a href="#">Home</a>
                     
                   </li>
 
-                  <li><a href="#">Top Listing</a>
+                  <li><a href="/listing">Listing</a>
                     
                   </li>
 
@@ -333,7 +332,7 @@ renderButton(){
 
                     
                        
-                        <a href="#" className="button medium" style={{background:'#4a6d9d'}}> <i class="fa fa-fw">&#xf230;</i>
+                        <a href="#" className="button medium" style={{background:'#4a6d9d'}}> <i className="fa fa-fw">&#xf230;</i>
                         Facebook Login</a>
                   
                       
@@ -344,7 +343,7 @@ renderButton(){
 
                     <form method="post" className="register">
                       
-                       <a href="#" className="button medium" style={{background:'#4a6d9d'}}> <i class="fa fa-fw">&#xf230;</i>
+                       <a href="#" className="button medium" style={{background:'#4a6d9d'}}> <i className="fa fa-fw">&#xf230;</i>
                         Facebook Login</a>
         
                     </form>

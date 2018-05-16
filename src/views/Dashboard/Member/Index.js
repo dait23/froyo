@@ -1,16 +1,30 @@
 import React, {Component} from 'react';
 
 import Sidebar from '../Sidebar/'
-
+import NotFound from'../../../views/404/'
 class DashboardMember extends Component {
 
 
   render() {
+
+      if(window.localStorage.getItem('uid') == null && window.localStorage.getItem('space') == null ){
+
+
+    return(
+
+               <NotFound />
+
+      )
+
+
+  }
+
+  
    
    
     return (
 
-
+      
       
   
      <div id="dashboard">

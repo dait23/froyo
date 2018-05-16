@@ -62,6 +62,12 @@ const NotFound = Loadable({
   timeout: 10000, // 10 second
 });
 
+const Login = Loadable({
+ loader: () => fakeDelay(500).then(() => import('./views/Login/')),
+  loading: Loading,
+  timeout: 10000, // 10 second
+});
+
 const Contact = Loadable({
  loader: () => fakeDelay(500).then(() => import('./views/Pages/Contact')),
   loading: Loading,
@@ -153,7 +159,9 @@ render(
              <Route exact path="/listing" component={Listing} />
              <Route exact path="/listing-map" component={ListingMap} />
              <Route exact path="/single" component={Single} />
+             <Route exact path="/space/detail/:slug" component={Single} />
              <Route exact path="/contact" component={Contact} />
+             <Route exact path="/login" component={Login} />
              <Route exact path="/me/dashboard" component={DashboardMember} />
              <Route exact path="/me/dashboard/messages" component={Messages} />
              <Route exact path="/me/dashboard/messages/detail" component={DetailMessages} />

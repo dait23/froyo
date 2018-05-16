@@ -39,13 +39,13 @@ class Search extends Component {
                            
                            <div className="col-md-6">
                             <input id="check-1" type="checkbox" name="check"  className="all" />
-                            <label >All Categories</label>
+                            <label>All Categories</label>
 
                             <input id="check-2" type="checkbox" name="check" />
                             <label >Shops</label>
 
                             <input id="check-3" type="checkbox" name="check"/ >
-                            <label >Hotels</label>
+                            <label>Hotels</label>
                           </div>  
 
 
