@@ -3,7 +3,7 @@ import { Link} from 'react-router-dom';
 import { inject, observer, Provider } from 'mobx-react';
 import ReactPlaceholder from 'react-placeholder';
 import "react-placeholder/lib/reactPlaceholder.css";
-//import List from './ListMidle';
+import List from './List';
 import partnerStore from './Store/Store';
 
 
@@ -15,6 +15,8 @@ const Partner = inject('partnerStore')(
   observer(
     class extends Component {
       //sayHello = () => this.props.postsStore.createPost('Hello World Again Mobx!');
+
+    
 
       render() {
         const { error, loading, count, partners } = this.props.partnerStore;
@@ -146,33 +148,20 @@ const Partner = inject('partnerStore')(
 				  {partners.map((partner) => (
 
             
-						<div className="col-md-4" key={partner.id}>
-	                     
-	                     <div className="carousel-itemx">
-								<a href={`/space/detail/${partner.slug}`} className="listing-item-container">
-									<div className="listing-item">
-										<img src="images/thumb.jpg" alt={partner.name} />
-
-										<div className="listing-badge now-open">Available</div>
-										
-										<div className="listing-item-content">
-											<span className="tag">{partner.category.name}</span>
-											<h3>{partner.name} <i className="verified-icon"></i></h3>
-											<span>{partner.area.name}</span>
-										</div>
-										<span className="like-icon"></span>
-									</div>
-									
-								</a>
-							</div>
-
-						</div>
-
+						<List
+	                      key={partner.id}
+	                      partner={partner}
+	                      refresh={() => this.props.data.refetch()}
+	                    />
 					
           ))}
 
 				</div>
+				<div className="center-block" style={{width:'100%', textAlign:'center'}}><a href="/listing" className="button" style={{color:'#fff'}}>Find More Listing</a></div>
+				
 		</div>
+
+
 
             
 

@@ -43,6 +43,12 @@ const Listing = Loadable({
   timeout: 10000, // 10 second
 });
 
+const ListingArea = Loadable({
+ loader: () => fakeDelay(500).then(() => import('./views/Listing/Area')),
+  loading: Loading,
+  timeout: 10000, // 10 second
+});
+
 const ListingMap = Loadable({
  loader: () => fakeDelay(500).then(() => import('./views/Listing/ListingMap')),
   loading: Loading,
@@ -51,6 +57,12 @@ const ListingMap = Loadable({
 
 const Single = Loadable({
  loader: () => fakeDelay(500).then(() => import('./views/Single/')),
+  loading: Loading,
+  timeout: 10000, // 10 second
+});
+
+const Space = Loadable({
+ loader: () => fakeDelay(500).then(() => import('./views/Space/')),
   loading: Loading,
   timeout: 10000, // 10 second
 });
@@ -64,6 +76,12 @@ const NotFound = Loadable({
 
 const Login = Loadable({
  loader: () => fakeDelay(500).then(() => import('./views/Login/')),
+  loading: Loading,
+  timeout: 10000, // 10 second
+});
+
+const Area = Loadable({
+ loader: () => fakeDelay(500).then(() => import('./views/Area/')),
   loading: Loading,
   timeout: 10000, // 10 second
 });
@@ -113,6 +131,12 @@ const NewBrand = Loadable({
   timeout: 10000, // 10 second
 });
 
+const EditBrand = Loadable({
+ loader: () => fakeDelay(500).then(() => import('./views/Dashboard/Brand/Edit/')),
+  loading: Loading,
+  timeout: 10000, // 10 second
+});
+
 const Profile = Loadable({
  loader: () => fakeDelay(500).then(() => import('./views/Dashboard/Profile/')),
   loading: Loading,
@@ -157,18 +181,22 @@ render(
             <Switch>
              <Route exact path='/' component={Home} />
              <Route exact path="/listing" component={Listing} />
+             <Route exact path="/listing/area" component={Area} />
+             <Route exact path="/listing/area/:slug" component={ListingArea} />
              <Route exact path="/listing-map" component={ListingMap} />
              <Route exact path="/single" component={Single} />
              <Route exact path="/space/detail/:slug" component={Single} />
+             <Route exact path="/space/:slug" component={Space} />
              <Route exact path="/contact" component={Contact} />
              <Route exact path="/login" component={Login} />
              <Route exact path="/me/dashboard" component={DashboardMember} />
              <Route exact path="/me/dashboard/messages" component={Messages} />
-             <Route exact path="/me/dashboard/messages/detail" component={DetailMessages} />
+             <Route exact path="/me/dashboard/messages/detail/:id" component={DetailMessages} />
              <Route exact path="/me/dashboard/inquiry" component={Inquiry} />
              <Route exact path="/me/dashboard/brand" component={Brand} />
-              <Route exact path="/me/dashboard/brand/new" component={NewBrand} />
-             <Route exact path="/me/Profile" component={Profile} />
+             <Route exact path="/me/dashboard/brand/new" component={NewBrand} />
+             <Route exact path="/me/dashboard/brand/edit/:id" component={EditBrand} />
+             <Route exact path="/me/dashboard/profile" component={Profile} />
              <Route exact path="/404" component={NotFound} />
              <Route path="*" component={NotFound} /> 
         

@@ -2,8 +2,134 @@ import React, {Component} from 'react';
 
 import Sidebar from '../Sidebar/'
 import NotFound from'../../../views/404/'
+import {MainApi, Cloudinary_Name} from '../../Api/';
+
+
+
+
+var myDate = new Date();
+
+
 class DashboardMember extends Component {
 
+   constructor(props) {
+    super(props)
+    this.state = { 
+      loading: true,
+    }
+
+
+  }
+ 
+ ////////////////// did mount 
+  componentDidMount() {
+    var that = this;
+    that.getData();
+  }
+////////////////////////
+
+////////////////////get data
+
+  getData(){
+     var that = this;
+     that.setState({
+          loading: true
+      });
+     var fetch = require('graphql-fetch')(MainApi)
+
+          var query = `
+            query User($id: ID!) {
+              User(id: $id){
+                id
+                name
+             
+              }
+            }
+          `
+          var queryVars = {
+            id: localStorage.getItem('uid')
+          }
+          var opts = {
+            // custom fetch options
+          }
+
+
+          fetch(query, queryVars, opts).then(function (results) {
+
+            //console.log(results)
+            if (results.errors) {
+             // console.log('cccc')
+              //...
+             // window.location= "/";
+            }
+            //var BlogCategory = results.data.BlogCategory
+
+
+           if ( results.data.User == null){
+
+               window.location= "/404";
+
+           }else{
+
+              that.setState({
+                data: results.data.User,
+                id:results.data.User.id,
+                name:results.data.User.name,
+                loading:false
+             });
+
+            //console.log(that.state.facebookUserId);
+
+           }
+
+           
+           
+          })
+ 
+
+  }
+  //////////////
+
+  renderGreting(){
+
+    if ( myDate.getHours() < 12 ) 
+    {
+        return(
+
+
+                <h2>Selamat Pagi, {this.state.name}</h2>
+         
+
+          );
+    }
+    if ( myDate.getHours() >= 12 && myDate.getHours() <= 17 ) 
+    {
+        return(
+
+     
+
+                <h2>Selamat sore, {this.state.name}</h2>
+      
+          );
+    }else{
+
+    
+        return(
+
+  
+
+                <h2>Selamat Malam, {this.state.name}</h2> 
+       
+
+          );
+
+
+    }
+
+
+  }
+
+///////////
 
   render() {
 
@@ -37,7 +163,7 @@ class DashboardMember extends Component {
              <div id="titlebar">
                 <div className="row">
                   <div className="col-md-12">
-                    <h2>Howdy, Tom!</h2>
+                    {this.renderGreting()}
 
                     <nav id="breadcrumbs">
                       <ul>
@@ -49,16 +175,7 @@ class DashboardMember extends Component {
                 </div>
               </div>
 
-              {/* notice */}
-              <div className="row">
-              <div className="col-md-12">
-                <div className="notification success closeable margin-bottom-30">
-                  <p>Your listing <strong>Hotel Govendor</strong> has been approved!</p>
-                  <a className="close" href="#"></a>
-                </div>
-              </div>
-            </div>
-            {/* notice */}
+             
              
 
             {/* content*/}

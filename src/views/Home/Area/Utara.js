@@ -38,8 +38,8 @@ const Area = inject('areaStore')(
              {norths.map((area) => (
 
             
-						<a href="" key={area.id}>
-						  <img className="img-box" src="images/jakarta-utara.jpg" alt={area.name}/>
+						<a href={`/listing/area/${area.slug}`} key={area.id}>
+						  <img className="img-box" src={area.imageUrl} alt={area.name}/>
 							<div className="img-box-content visible">
 								<h4>{area.name}</h4>
 								<span>{area._partnersMeta.count} Spaces</span>

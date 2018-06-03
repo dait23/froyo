@@ -1,13 +1,85 @@
 import React, {Component} from 'react';
-import { Link } from 'react-router-dom'
-
+import { Link, withRouter } from 'react-router-dom'
+import { graphql, compose } from 'react-apollo'
+import gql from 'graphql-tag'
+import NotFound from'../../../views/404/'
 import Sidebar from '../Sidebar/'
+import List from './List'
 
 class Messages extends Component {
 
 
-  render() {
+
    
+
+
+
+
+renderList(){
+ const inList = this.props.data.allMessages || []
+
+  if(this.props.data.allMessages == ''){
+   
+    return(
+ 
+       <li>
+        
+          Belum ada Pesan
+
+       </li>
+
+
+      )
+
+  }else{
+
+   return(
+
+    <div>
+    
+     {inList.map((pesan) => (
+                    <List
+                      key={pesan.id}
+                      pesan={pesan}
+                      refresh={() => this.props.data.refetch()}
+                    />
+                  ))}
+
+
+      </div>
+
+
+   )
+
+  }
+
+
+}
+
+
+  render() {
+
+
+     if(window.localStorage.getItem('uid') == null && window.localStorage.getItem('space') == null ){
+
+
+    return(
+
+               <NotFound />
+
+      )
+
+
+  }
+
+   if (this.props.data.loading) {
+      return (
+
+          <div>Loading...</div>
+        )
+
+    }
+
    
     return (
 
@@ -52,19 +124,7 @@ class Messages extends Component {
 
                      <ul>
                 
-                       <li className="unread">
-                          <Link to="/me/messages/detail">
-                            <div className="message-avatar"><img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&amp;s=70" alt="" /></div>
-
-                            <div className="message-by">
-                              <div className="message-by-headline">
-                                <h5>Kathy Brown <i>Unread</i></h5>
-                                <span>2 hours ago</span>
-                              </div>
-                              <p>Hello, I want to talk about your great listing! Morbi velit eros, sagittis in facilisis non, rhoncus posuere ultricies...</p>
-                            </div>
-                          </Link>
-                        </li>
+                        {this.renderList()}
 
 
                      </ul>
@@ -90,4 +150,49 @@ class Messages extends Component {
 
 
 
-export default Messages;
+const Uid = window.localStorage.getItem('uid');
+
+const QueryMesage = gql`query allMessages($id: ID!) {
+  allMessages(filter:{
+    user:{
+      id: $id
+    }
+  }, orderBy:updatedAt_DESC){
+ 
+   id
+    content
+    createdAt
+    updatedAt
+    user{
+      id
+      name
+      facebookUserId
+      member{
+        id
+        imageId
+        imageUrl
+      }
+    }
+    partner{
+      id
+      name
+      imageUrl
+      imageId
+      user{
+        id
+        name
+      }
+    }
+    
+  }
+
+     
+}`
+
+
+
+const ListPageWithData = graphql(QueryMesage, {
+  options: { variables: { id: Uid } }
+})(Messages)
+
+export default ListPageWithData

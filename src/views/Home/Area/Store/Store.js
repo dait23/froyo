@@ -20,6 +20,8 @@ const allLeftQuery = gql`
     id
     name
     slug
+     imageId
+    imageUrl
     _partnersMeta{
       count
     }
@@ -36,6 +38,8 @@ const allNorthQuery = gql`
   }){
     id
     name
+     imageId
+    imageUrl
     slug
     _partnersMeta{
       count
@@ -54,6 +58,8 @@ const allCentralQuery = gql`
     id
     name
     slug
+     imageId
+    imageUrl
     _partnersMeta{
       count
     }
@@ -70,6 +76,8 @@ const allWestQuery = gql`
   }){
     id
     name
+     imageId
+    imageUrl
     slug
     _partnersMeta{
       count

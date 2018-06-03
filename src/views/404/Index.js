@@ -17,7 +17,7 @@ class NotFound extends Component {
 						
 						<nav id="breadcrumbs">
 							<ul>
-								<li><a href="#">Home</a></li>
+								<li><a href="/">Home</a></li>
 								<li>404 Not Found</li>
 							</ul>
 						</nav>

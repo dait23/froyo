@@ -3,6 +3,8 @@ import { Link} from 'react-router-dom';
 import { inject, observer, Provider } from 'mobx-react';
 import ReactPlaceholder from 'react-placeholder';
 import "react-placeholder/lib/reactPlaceholder.css";
+import {Image} from 'cloudinary-react';
+import {Cloudinary_Name} from '../../Api/';
 //import List from './ListMidle';
 import areaStore from './Store/Store';
 
@@ -38,8 +40,8 @@ const Area = inject('areaStore')(
              {wests.map((area) => (
 
             
-						<a href="" key={area.id}>
-						  <img className="img-box" src="images/jakarta-barat.jpg" alt={area.name}/>
+						<a href={`/listing/area/${area.slug}`} key={area.id}>
+					               <img className="img-box" src={area.imageUrl} alt={area.name}/>
 							<div className="img-box-content visible">
 								<h4>{area.name}</h4>
 								<span>{area._partnersMeta.count} Spaces</span>

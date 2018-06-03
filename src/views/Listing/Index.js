@@ -9,6 +9,7 @@ import {
   Pagination,
   Highlight,
   Configure,
+  MenuSelect,
   ClearAll
 } from 'react-instantsearch/dom';
 import { connectHits, connectRange } from 'react-instantsearch/connectors';
@@ -22,25 +23,13 @@ const CustomHits = connectHits(({ hits }) =>
 
 <div className="row">
   {hits.map(hit =>
-   
-        <div className="col-lg-6 col-md-12" key={hit.objectID}>
-					<a href={`/space/detail/${hit.slug}`} className="listing-item-container">
-						<div className="listing-item">
-							<img src="https://res.cloudinary.com/spazeeid/image/upload/v1526409104/listing-image-high_ppzl6t.jpg" alt="thumb" />
+  
 
-							<div className="listing-badge now-open">Now Open</div>
-							
-							<div className="listing-item-content">
-								<span className="tag">{hit.category.name}</span>
-								<h3>{hit.name} <i className="verified-icon"></i></h3>
-								<span>{hit.area.name}</span>
-							</div>
-							<span className="like-icon"></span>
-						</div>
-						
-					</a>
-				 </div>
-
+				 <List
+	                      key={hit.objectID}
+	                      hit={hit}
+	                      refresh={() => this.props.data.refetch()}
+	                    />
 
   )}
 </div>
@@ -67,7 +56,7 @@ class Listing extends Component {
 						<h2>Listings Space</h2>
 						<nav id="breadcrumbs">
 							<ul>
-								<li><a href="#">Home</a></li>
+								<li><a href="/">Home</a></li>
 								<li>Listings</li>
 							</ul>
 						</nav>
@@ -106,13 +95,7 @@ class Listing extends Component {
 					<div className="col-md-6 col-xs-6">
 						<div className="sort-by">
 							<div className="sort-by-select">
-								<select data-placeholder="Default order" className="chosen-select-no-single">
-									<option>Default Order</option>	
-									<option>Highest Rated</option>
-									<option>Most Reviewed</option>
-									<option>Newest Listings</option>
-									<option>Oldest Listings</option>
-								</select>
+								
 							</div>
 						</div>
 					</div>
@@ -123,7 +106,7 @@ class Listing extends Component {
                     
                     <CustomHits />
 		          
-		           <Configure hitsPerPage={10} />
+		           <Configure hitsPerPage={16} />
 				
 
 					<div className="clearfix"></div>
@@ -159,11 +142,51 @@ class Listing extends Component {
 									<div>
 								      <div style={{marginLeft:'15px', marginTop:'10px'}}> <ClearRefinements /></div>
 								      <h3 className="margin-top-30 margin-bottom-20 margin-left-15">Area</h3>
-										<RefinementList 
-								            attribute="area.name"
-								            translations={{ noResults: 'No matching Category' }}
-                                            className="checkboxes one-in-row margin-bottom-15"
-								            />
+	
+								         <MenuSelect
+										    attribute="area.name"
+										    limit={10}
+										    showMore={false}
+										    showMoreLimit={20}
+
+										  />
+
+										 <h3 className="margin-top-30 margin-bottom-20 margin-left-15">Category</h3>
+	
+								         <MenuSelect
+										    attribute="category.name"
+										    limit={10}
+										    showMore={false}
+										    showMoreLimit={20}
+
+										  />
+										  <h3 className="margin-top-30 margin-bottom-20 margin-left-15">Types</h3>
+										   <RefinementList
+									          attribute="types.name"
+									          translations={{ noResults: 'No matching Types' }}
+									          className="checkboxes one-in-row margin-bottom-5"
+									        />
+
+										  <h3 className="margin-top-30 margin-bottom-20 margin-left-15">Fasilitas</h3>
+										   <RefinementList
+									          attribute="facilities.name"
+									          translations={{ noResults: 'No matching facility' }}
+									          className="checkboxes one-in-row margin-bottom-5"
+									        />
+
+									        <h3 className="margin-top-30 margin-bottom-20 margin-left-15">Inclusions</h3>
+										   <RefinementList
+									          attribute="inclusions.name"
+									          translations={{ noResults: 'No matching Inclusion' }}
+									          className="checkboxes one-in-row margin-bottom-5"
+									        />
+									       <h3 className="margin-top-30 margin-bottom-20 margin-left-15">Exclusion</h3>
+										   <RefinementList
+									          attribute="exclusions.name"
+									          translations={{ noResults: 'No matching Exclusion' }}
+									          className="checkboxes one-in-row margin-bottom-5"
+									        />
+                                          
 									</div>
 								</div>
 

@@ -71,10 +71,8 @@ class Header extends React.Component {
   _isLoggedIn = () => {
 
 
-
-    return this.props.data.loggedInUserFb && 
-      this.props.data.loggedInUserFb.id && 
-      localStorage.setItem('uid', this.props.data.loggedInUserFb.id);
+    localStorage.setItem('urole', this.props.data.loggedInUserFb.jabatan);
+    return this.props.data.loggedInUserFb && this.props.data.loggedInUserFb.id && localStorage.setItem('uid', this.props.data.loggedInUserFb.id);
      
 
 
@@ -128,19 +126,24 @@ renderButton(){
      return(
         
         <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-         <img src={pic} alt="avatar"  style={{width:'40px', height:'40px', borderRadius:'100%'}}/>
+        <img src={pic} alt="avatar"  style={{width:'40px', height:'40px', borderRadius:'100%'}}/>
         <DropdownToggle caret>
          My Account
         </DropdownToggle>
         <DropdownMenu >
-         <DropdownItem><a href="/me/dashboard">Dashboard</a></DropdownItem>
+          <a href="/me/dashboard"><DropdownItem>Dashboard</DropdownItem></a>
+          <a href="/me/dashboard/brand"><DropdownItem>Ideas</DropdownItem></a>
+          <a href="/me/dashboard/inquiry"><DropdownItem>Inquiry</DropdownItem></a>
+          <a href="/me/dashboard/messages"><DropdownItem>Messages</DropdownItem></a>
+          <a href="/me/dashboard/profile"><DropdownItem>Profile</DropdownItem></a>
           <DropdownItem><a onClick={this._logout} style={{cursor:'pointer'}}> Logout</a></DropdownItem>
         </DropdownMenu>
       </Dropdown>
       )
 
   }else{
-    localStorage.removeItem('uid');
+     localStorage.removeItem('uid');
+     localStorage.removeItem('urole');
   return(
         
         
@@ -185,7 +188,7 @@ renderButton(){
               <nav id="navigation" className="style-1">
                 <ul id="responsive">
 
-                  <li><a className="current" href="#">Home</a>
+                  <li><a href="/">Home</a>
                     
                   </li>
 
@@ -287,7 +290,7 @@ renderButton(){
               <nav id="navigation" className="style-1">
                 <ul id="responsive">
 
-                  <li><a href="#">Home</a>
+                  <li><a href="/">Home</a>
                     
                   </li>
 

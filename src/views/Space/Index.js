@@ -12,11 +12,10 @@ import "react-image-gallery/styles/css/image-gallery.css";
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import 'react-day-picker/lib/style.css';
 
-import Maps from './Map'
 import Share from './Share';
-import List from './List';
+
 // import formatMoney from 'accounting-js/lib/formatMoney.js'
-import Street from './Street'
+
 import ReactPlaceholder from 'react-placeholder';
 import "react-placeholder/lib/reactPlaceholder.css";
 import Select from 'react-select';
@@ -43,7 +42,7 @@ const images = [
       }
     ];
 
-class Single extends Component {
+class Space extends Component {
 
  static propTypes = {
     router: PropTypes.object
@@ -54,21 +53,12 @@ class Single extends Component {
     super(props)
     this.state = {
      // startDate: moment(),
-     facilities:[],
-     collabs:[],
-     galleries:[],
-     inclusions:[],
-     exclusions:[],
-     spaces:[],
-     currentImage: 0,
+
       data:'',
       loading: true,
     }
 
-    this.closeLightbox = this.closeLightbox.bind(this);
-    this.openLightbox = this.openLightbox.bind(this);
-    this.gotoNext = this.gotoNext.bind(this);
-    this.gotoPrevious = this.gotoPrevious.bind(this);
+
     this.handleChange = this.handleChange.bind(this);
     this.handleChangex = this.handleChangex.bind(this);
   
@@ -91,30 +81,7 @@ class Single extends Component {
     }
 
 
-  openLightbox(event, obj) {
-    this.setState({
-      currentImage: obj.index,
-      lightboxIsOpen: true,
-
-      });
-  }
-  closeLightbox() {
-    this.setState({
-      currentImage: 0,
-      lightboxIsOpen: false,
-    });
-  }
-  gotoPrevious() {
-    this.setState({
-      currentImage: this.state.currentImage - 1,
-    });
-  }
-  gotoNext() {
-    this.setState({
-      currentImage: this.state.currentImage + 1,
-    });
-  }
-
+  
    
 ////////////////// did mount 
   componentDidMount() {
@@ -133,54 +100,31 @@ class Single extends Component {
      var fetch = require('graphql-fetch')(MainApi)
 
           var query = `
-            query Partner($slug: String) {
-              Partner(slug: $slug){
+            query Space($slug: String) {
+              Space(slug: $slug){
                 id
-                uId
-			    name
-			    slug
-			    address
-			    description
-			    nearby
-			    imageUrl
-			    imageId
-			    read
-			    lat
-			    lng
-			    spaces{
-			      title
-			      imageUrl
-			      imageId
-            
-			      price1
-			      slug
-			       wide{
-				        size
-				      }
-			    }
-			    category{
-			      name
-			    }
-			    area{
-			      name
-			    }
-			    facilities{
-			      name
-			    }
-			    inclusions{
-			      name
-			    }
-			    exclusions{
-			      name
-			    }
-			   collabs{
-			    name
-			  }
-			  galleries{
-			      id
-			      imageId
-			      imageUrl
-			    }
+                title
+                slug
+                description
+                rules
+                nearby
+                visitor
+                imageId
+                imageUrl
+                price1
+                price7
+                price30
+                partner{
+                  address
+                  area{
+                    name
+                  }
+                }
+                wide{
+                  id
+                  size
+                }
+			    
               
              
              
@@ -206,34 +150,28 @@ class Single extends Component {
             //var BlogCategory = results.data.BlogCategory
 
 
-           if ( results.data.Partner == null){
+           if ( results.data.Space == null){
 
                window.location= "/404";
 
            }else{
 
               that.setState({
-	              data: results.data.Partner,
-	              id:results.data.Partner.id,
-	              uid:results.data.Partner.uid,
-	              name:results.data.Partner.name,
-	              read:results.data.Partner.read,
-	              address:results.data.Partner.address,
-	              slug:results.data.Partner.slug,
-	              description:results.data.Partner.description,
-	              nerby:results.data.Partner.nearby,
-	              imageId:results.data.Partner.imageId,
-	              imageUrl:results.data.Partner.imageUrl,
-	              lng:results.data.Partner.lng,
-	              lat:results.data.Partner.lat,
-	              facilities:results.data.Partner.facilities,
-	              category:results.data.Partner.category.name,
-	              area:results.data.Partner.area.name,
-	              collabs:results.data.Partner.collabs,
-	              inclusions:results.data.Partner.inclusions,
-	              exclusions:results.data.Partner.exclusions,
-	              spaces:results.data.Partner.spaces,
-	              galleries:results.data.Partner.galleries,
+	              data: results.data.Space,
+	              id:results.data.Space.id,
+                title:results.data.Space.title,
+                description:results.data.Space.description,
+                rules:results.data.Space.rules,
+                address:results.data.Space.partner.address,
+                area:results.data.Space.partner.area.name,
+                nearby:results.data.Space.nearby,
+                price1:results.data.Space.price1,
+                price7:results.data.Space.price7,
+                price30:results.data.Space.price30,
+                visitor:results.data.Space.visitor,
+                imageUrl:results.data.Space.imageUrl,
+                size:results.data.Space.wide.size,
+	             
 	              loading:false
              });
 
@@ -241,58 +179,25 @@ class Single extends Component {
 
            }
 
-             that.onRead();
+            
            
            
           })
  
 
   }
-  //////////////////
-
-  onRead() {
-
-     var that = this;
-     var fetch = require('graphql-fetch')(MainApi)
-
-          var query = `
-            mutation updatePartner ($id: ID!, $read: Int){
-              updatePartner(id: $id, read: $read){
-                id           
-              }
-            }
-          `
-          var queryVars = {
-            id: this.state.id,
-            read: parseInt(this.state.read + 1),
-          }
-          var opts = {
-            // custom fetch options
-          }
-
-
-          fetch(query, queryVars, opts).then(function (results) {
-            if (results.errors) {
-              //...
-              return
-            }
-            //var BlogCategory = results.data.BlogCategory
-
-             //that.getData();
-            //...
-          })
-
-
-  } 
-  /////////////////////////
-
+  
 
 renderGaleri(){
 
- const galleries = this.state.galleries || [ ]
+const thumb = [
+      {
+        original: this.state.imageUrl,
+      }
+    ];
 
 
- if(this.state.galleries == ''){
+ if(this.state.imageUrl == ''){
 
  	return(
         
@@ -308,12 +213,8 @@ renderGaleri(){
 
 return(
 
-       <ImageGallery items={galleries.map((galeri) => (
-                           
-                           { original: galeri.imageUrl}
-
-                         
-                          ))} 
+       <ImageGallery items={thumb}
+ 
             showThumbnails={false}
             infinite={true}
             showPlayButton={false}
@@ -332,131 +233,9 @@ return(
 
 }
 
-renderFacility(){
-	 const facilities = this.state.facilities || [ ]
-
-	 if(facilities == ''){
-
-        return(
-
-              <p>No Facility Yet</p>
-
-        	)
-
-	 }else{
-
-   return(
-            <ul className="listing-features checkboxes margin-top-0">
-      
-                          {facilities.map((facility, i) => (
-
-                            <li key={i}>{facility.name}</li>
-                            
-                          ))}
-
-             </ul>
-
-   	)
-   }
-
-}
-
-renderInc(){
-	 const inclusions = this.state.inclusions || [ ]
-
-	 if(inclusions == ''){
-
-        return(
-
-              <p>No Inclusion Yet</p>
-
-        	)
-
-	 }else{
-
-   return(
-            <ul className="listing-features checkboxes margin-top-0">
-      
-                          {inclusions.map((inc, i) => (
-
-                            <li key={i}>{inc.name}</li>
-                            
-                          ))}
-
-             </ul>
-
-   	)
-   }
-
-}
-
-
-renderSpace(){
-
- const spaces = this.state.spaces || [ ]
-
-   if(spaces == ''){
-
-        return(
-
-              <p>No Spaces Available</p>
-
-        	)
-
-	 }else{
-
-
-   return(
-            <div className="row">
-      
-                          {spaces.map((space, i) => (
-
-                           <List
-		                      key={space.id}
-		                      space={space}
-		                      refresh={() => this.props.data.refetch()}
-		                    />
-                            
-                          ))}
-
-             </div>
-
-   	)
-  }
 
 
 
-}
-
-
-renderEx(){
-	 const exclusions = this.state.exclusions || [ ]
-
-    if(exclusions == ''){
-
-        return(
-
-              <p>No Exclusion Yet</p>
-
-        	)
-
-	 }else{
-
-
-   return(
-            <ul className="listing-features checkboxes margin-top-0">
-      
-                          {exclusions.map((ex, i) => (
-
-                            <li key={i}>{ex.name}</li>
-                            
-                          ))}
-
-             </ul>
-
-   	)
-  }
-}
 
 
 ///////////////////////
@@ -484,6 +263,81 @@ renderDes(){
      )
 
 	}
+}
+
+renderRule(){
+
+  if(this.state.rules == ''){
+
+    return(
+             
+             <p>
+                Tidak ada peraturan space
+             </p>
+
+      )
+
+
+  }else{
+
+     return(
+
+
+    <p dangerouslySetInnerHTML={{ __html: this.state.rules }}></p>
+
+     )
+
+  }
+}
+
+renderVisitor(){
+
+  if(this.state.visitor == ''){
+
+    return(
+             
+             <p>
+                Tidak ada Pengunjung
+             </p>
+
+      )
+
+
+  }else{
+
+     return(
+
+
+    <p dangerouslySetInnerHTML={{ __html: this.state.visitor }}></p>
+
+     )
+
+  }
+}
+
+renderNearby(){
+
+  if(this.state.nearby == ''){
+
+    return(
+             
+             <p>
+                Tidak ada Nearby Space
+             </p>
+
+      )
+
+
+  }else{
+
+     return(
+
+
+    <p dangerouslySetInnerHTML={{ __html: this.state.nearby }}></p>
+
+     )
+
+  }
 }
 
 //////////////////////////////
@@ -525,7 +379,7 @@ renderDes(){
 
 				  <div id="titlebar" className="listing-titlebar">
 					<div className="listing-titlebar-title">
-						<h2>{this.state.name} <span className="listing-tag">{this.state.category}</span> </h2>
+						<h2>{this.state.title} <span className="listing-tag">{this.state.size}</span> </h2>
 						<span>
 							<a className="listing-address">
 								
@@ -555,76 +409,75 @@ renderDes(){
 					{this.renderDes()}
 
 					
-				<h3 className="listing-desc-headline">Fasilitas</h3>
-					{this.renderFacility()}
-
-				<h3 className="listing-desc-headline">Inclusion</h3>
-					{this.renderInc()}
-
-			    <h3 className="listing-desc-headline">Exclusion</h3>
-					{this.renderEx()}
-
+				
+				
 
 				</div>
 
 
+        <div id="listing-nav" className="listing-nav-container">
+          <ul className="listing-nav">
+            <li><a href="#listing-overview" className="active">Peraturan Space</a></li>
+            
+          </ul>
+        </div>
 
-				  <div id="listing-location" className="listing-section">
+        <div id="listing-overview" className="listing-section">
 
-					<h3 className="listing-desc-headline margin-top-60 margin-bottom-30">Location Map</h3>
+        
 
-					<div id="singleListing Map-container">
-						<div id="singleListingMap">
+          {this.renderRule()}
 
-                       <Maps 
+          
+        
+        
 
-                        lat={this.state.lat}
-                        lng={this.state.lng}
-                        name={this.state.name}
-                       />
-
-
-
-						</div>
-
-						<h3 className="listing-desc-headline margin-top-60 margin-bottom-30">Street Map</h3>
-
-					<div id="singleListing Map-container">
-						<div id="singleListingMap">
-
-                       <Street
-
-                        lat={this.state.lat}
-                        lng={this.state.lng}
-                        name={this.state.name}
-                       />
-
-                      
-
-						</div></div>
-						
-						
-					</div>
+        </div>
+    
 
 
+       <div id="listing-nav" className="listing-nav-container">
+          <ul className="listing-nav">
+            <li><a href="#listing-overview" className="active">Pengunjung Space</a></li>
+            
+          </ul>
+        </div>
 
-				  <div id="listing-location" className="listing-section">
+        <div id="listing-overview" className="listing-section">
 
-					<h3 className="listing-desc-headline margin-top-60 margin-bottom-30">{this.state.name} space available </h3>
+        
 
-					{this.renderSpace()}
+          {this.renderVisitor()}
 
-				  </div>
+          
+        
+        
 
-
-
-					
-
-
+        </div>
 
 
+       
+       <div id="listing-nav" className="listing-nav-container">
+          <ul className="listing-nav">
+            <li><a href="#listing-overview" className="active">Nearby Space</a></li>
+            
+          </ul>
+        </div>
 
-				</div>
+        <div id="listing-overview" className="listing-section">
+
+        
+
+          {this.renderNearby()}
+
+          
+        
+        
+
+        </div>
+
+
+
 
 				 
 
@@ -686,8 +539,9 @@ renderDes(){
                         value={this.state.areaId}
                         onChange={this.handleChangez}
                         options={[
-                          { value: 'one', label: 'Rp.' },
-                          { value: 'two', label: 'Rp.' },
+                          { value: this.state.price1, label: 'Rp. ' + this.state.price1 + ' / Hari' },
+                           { value: this.state.price7, label: 'Rp. ' + this.state.price7 + ' / Minggu' },
+                            { value: this.state.price30, label: 'Rp. ' + this.state.price30 + ' / Bulan' },
                         ]}
                       />
 								</div>
@@ -750,4 +604,4 @@ renderDes(){
   }
 }
 
-export default Single;
+export default Space;

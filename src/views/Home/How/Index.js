@@ -7,7 +7,7 @@ class How extends Component {
        <div className="container padding-bottom-70">
 
 			<div className="row">
-				<div className="col-md-8 col-md-offset-2">
+				<div className="col-md-12">
 					<h2 className="headline centered margin-top-80">
 						Plan The Vacation of Your Dreams 
 						<span className="margin-top-25">Explore some of the best tips from around the world from our partners and friends.  Discover some of the most popular listings in Sydney.</span>

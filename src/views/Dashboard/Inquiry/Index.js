@@ -1,18 +1,86 @@
 import React, {Component} from 'react';
-import { Link } from 'react-router-dom'
-
+import { Link, withRouter } from 'react-router-dom'
+import { graphql, compose } from 'react-apollo'
+import gql from 'graphql-tag'
+import NotFound from'../../../views/404/'
 import Sidebar from '../Sidebar/'
-
+import List from './List'
 
 class Inquiry extends Component {
 
 
+renderList(){
+ const inList = this.props.data.allInquiries || []
+
+  if(this.props.data.allInquiries == ''){
+   
+    return(
+ 
+       <li>
+        
+          Belum ada inquiry
+
+       </li>
+
+
+      )
+
+  }else{
+
+   return(
+
+    <div>
+    
+     {inList.map((inquiry) => (
+                    <List
+                      key={inquiry.id}
+                      inquiry={inquiry}
+                      refresh={() => this.props.data.refetch()}
+                    />
+                  ))}
+
+
+      </div>
+
+
+   )
+
+  }
+
+
+}
+
+
+
+
+
+
   render() {
    
+        if(window.localStorage.getItem('uid') == null && window.localStorage.getItem('space') == null ){
+
+
+    return(
+
+               <NotFound />
+
+      )
+
+
+  }
+
+   if (this.props.data.loading) {
+      return (
+
+          <div>Loading...</div>
+        )
+
+    }
+
    
     return (
 
-
+   
       
   
      <div id="dashboard">
@@ -46,14 +114,7 @@ class Inquiry extends Component {
                <div className="dashboard-list-box margin-top-0">
 
                   <div className="sort-by">
-                    <div className="sort-by-select">
-                        <select data-placeholder="Default order" className="chosen-select-no-single">
-                          <option>Any Status</option> 
-                          <option>Approved</option>
-                          <option>Pending</option>
-                          <option>Canceled</option>
-                        </select>
-                    </div>
+                    
                   </div>
 
                   <div id="small-dialog" className="zoom-anim-dialog mfp-hide">
@@ -66,129 +127,12 @@ class Inquiry extends Component {
                     </div>
                   </div>
 
-                  <h4>Bookings List</h4>
-                    <ul>
-                        <li className="pending-booking">
-                          <div className="list-box-listing bookings">
-                            <div className="list-box-listing-img"><img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&amp;s=120" alt="" /></div>
-                            <div className="list-box-listing-content">
-                              <div className="inner">
-                                <h3>Tom's Restaurant <span className="booking-status pending">Pending</span></h3>
+                  <h4>Inquiry List</h4>
+                     <ul>
+                        
+                      {this.renderList()}
 
-                                <div className="inner-booking-list">
-                                  <h5>Booking Date:</h5>
-                                  <ul className="booking-list">
-                                    <li className="highlighted">12.12.2017 at 15:30 P.M</li>
-                                  </ul>
-                                </div>
-                                      
-                                <div className="inner-booking-list">
-                                  <h5>Booking Details:</h5>
-                                  <ul className="booking-list">
-                                    <li className="highlighted">3-4 People</li>
-                                  </ul>
-                                </div>    
-
-                                <div className="inner-booking-list">
-                                  <h5>Client:</h5>
-                                  <ul class="booking-list">
-                                    <li>John Smith</li>
-                                    <li><a href="http://www.vasterad.com/cdn-cgi/l/email-protection" className="__cf_email__" data-cfemail="7a101512143a1f021b170a161f54191517">[email&#160;protected]</a></li>
-                                    <li>123-456-789</li>
-                                  </ul>
-                                </div>
-
-                                <a href="#small-dialog" className="rate-review popup-with-zoom-anim"><i className="sl sl-icon-envelope-open"></i> Send Message</a>
-
-                              </div>
-                            </div>
-                          </div>
-                          <div className="buttons-to-right">
-                            <a href="#" className="button gray reject"><i className="sl sl-icon-close"></i> Cancel</a>
-                            <a href="#" className="button gray approve"><i className="sl sl-icon-check"></i> Approve</a>
-                          </div>
-                        </li>
-
-
-                        <li className="approved-booking">
-                            <div className="list-box-listing bookings">
-                              <div className="list-box-listing-img"><img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&amp;s=120" alt="" /></div>
-                              <div className="list-box-listing-content">
-                                <div className="inner">
-                                  <h3>Burger House <span className="booking-status">Approved</span></h3>
-
-                                  <div className="inner-booking-list">
-                                    <h5>Booking Date:</h5>
-                                    <ul className="booking-list">
-                                      <li className="highlighted">10.12.2017 at 12:30 P.M</li>
-                                    </ul>
-                                  </div>
-                                        
-                                  <div className="inner-booking-list">
-                                    <h5>Booking Details:</h5>
-                                    <ul className="booking-list">
-                                      <li className="highlighted">1-2 People</li>
-                                    </ul>
-                                  </div>    
-
-                                  <div className="inner-booking-list">
-                                    <h5>Client:</h5>
-                                    <ul className="booking-list">
-                                      <li>Kathy Brown</li>
-                                      <li><a href="http://www.vasterad.com/cdn-cgi/l/email-protection" className="__cf_email__" data-cfemail="dcb7bda8b4a59cb9a4bdb1acb0b9f2bfb3b1">[email&#160;protected]</a></li>
-                                      <li>123-456-789</li>
-                                    </ul>
-                                  </div>
-
-                                  <a href="#small-dialog" className="rate-review popup-with-zoom-anim"><i className="sl sl-icon-envelope-open"></i> Send Message</a>
-
-                                </div>
-                              </div>
-                            </div>
-                            <div className="buttons-to-right">
-                              <a href="#" className="button gray reject"><i className="sl sl-icon-close"></i> Cancel</a>
-                            </div>
-                          </li>
-
-
-                          <li className="canceled-booking">
-                            <div className="list-box-listing bookings">
-                              <div className="list-box-listing-img"><img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&amp;s=120" alt="" /></div>
-                              <div className="list-box-listing-content">
-                                <div className="inner">
-                                  <h3>Tom's Restaurant <span className="booking-status">Canceled</span></h3>
-
-                                  <div className="inner-booking-list">
-                                    <h5>Booking Date:</h5>
-                                    <ul className="booking-list">
-                                      <li className="highlighted">21.10.2017 at 9:30 A.M</li>
-                                    </ul>
-                                  </div>
-                                        
-                                  <div className="inner-booking-list">
-                                    <h5>Booking Details:</h5>
-                                    <ul className="booking-list">
-                                      <li className="highlighted">1-2 People</li>
-                                    </ul>
-                                  </div>    
-
-                                  <div className="inner-booking-list">
-                                    <h5>Client:</h5>
-                                    <ul className="booking-list">
-                                      <li>Kathy Brown</li>
-                                      <li><a href="http://www.vasterad.com/cdn-cgi/l/email-protection" className="__cf_email__" data-cfemail="127973667a6b52776a737f627e773c717d7f">[email&#160;protected]</a></li>
-                                      <li>123-456-789</li>
-                                    </ul>
-                                  </div>
-
-                                </div>
-                              </div>
-                            </div>
-                            <div className="buttons-to-right">
-                              <a href="#" className="button gray reject"><i className="sl sl-icon-close"></i> Delete</a>
-                            </div>
-                          </li>
-
+                       
                     </ul>
 
 
@@ -212,6 +156,43 @@ class Inquiry extends Component {
 }
 
 
+const Uid = window.localStorage.getItem('uid');
+
+const QueryDraft = gql`query allPostsDraft($id: ID!) {
+  allInquiries(filter:{
+    user:{
+      id: $id
+    }
+  }, orderBy:updatedAt_DESC){
+    id
+    startAt
+    endAt
+    title
+    status
+    isApprove
+    partner{
+      id
+      name
+      imageUrl
+      imageId
+    }
+    brand{
+      id
+      name
+    }
+    user{
+      id
+      name
+    }
+  }
+
+     
+}`
 
 
-export default Inquiry;
+
+const ListPageWithData = graphql(QueryDraft, {
+  options: { variables: { id: Uid } }
+})(Inquiry)
+
+export default ListPageWithData

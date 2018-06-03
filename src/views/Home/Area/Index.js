@@ -37,6 +37,7 @@ class Area extends Component {
 				</div>
 
 			</div>
+			<div className="center-block" style={{width:'100%', textAlign:'center', marginTop:'20px'}}><a href="/listing/area" className="button" style={{color:'#fff'}}>Find More Area</a></div>
 		</div>
 
     )

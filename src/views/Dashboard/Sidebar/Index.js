@@ -3,7 +3,19 @@ import React, {Component} from 'react';
 
 class Sidebar extends Component {
 
+_logout = () => {
 
+     window.localStorage.clear()
+     // window.localStorage.removeItem('nordic');
+     //localStorage.removeItem('uid');
+    // localStorage.removeItem('uid')
+    //localStorage.removeItem('nordic')
+    // localStorage.removeItem('nordic');
+     window.location.reload()
+     
+  }
+
+  
   render() {
    
    
@@ -16,21 +28,21 @@ class Sidebar extends Component {
            <div className="dashboard-nav-inner">
 
               <ul data-submenu-title="Main">
-                <li className="active"><a href="dashboard.html"><i className="sl sl-icon-settings"></i> Dashboard</a></li>
-                <li><a href="dashboard-messages.html"><i className="sl sl-icon-envelope-open"></i> Messages <span className="nav-tag messages">2</span></a></li>
-                <li><a href="dashboard-bookings.html"><i className="fa fa-calendar-check-o"></i> Inquiry</a></li>
+                <li className="active"><a href="/me/dashboard"><i className="sl sl-icon-settings"></i> Dashboard</a></li>
+                <li><a href="/me/dashboard/messages"><i className="sl sl-icon-envelope-open"></i> Messages </a></li>
+                <li><a href="/me/dashboard/inquiry"><i className="fa fa-calendar-check-o"></i> Inquiry</a></li>
               </ul>
               
               <ul data-submenu-title="Listings">
-              <li><a href="/me/brand"><i className="sl sl-icon-layers"></i> My Brand</a></li>
+              <li><a href="/me/dashboard/brand"><i className="sl sl-icon-layers"></i> My Brand / Idea</a></li>
                 
-                <li><a href="dashboard-reviews.html"><i className="sl sl-icon-star"></i> Reviews</a></li>
-                <li><a href="dashboard-bookmarks.html"><i className="sl sl-icon-heart"></i> Bookmarks</a></li>
+
+               
               </ul> 
 
               <ul data-submenu-title="Account">
-                <li><a href="dashboard-my-profile.html"><i className="sl sl-icon-user"></i> My Profile</a></li>
-                <li><a href="index-2.html"><i className="sl sl-icon-power"></i> Logout</a></li>
+                <li><a href="/me/dashboard/profile"><i className="sl sl-icon-user"></i> My Profile</a></li>
+                <li><a onClick={this._logout}><i className="sl sl-icon-power"></i> Logout</a></li>
               </ul>
               
             </div>

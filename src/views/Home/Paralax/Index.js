@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
 
-import Background from './slider-bg-02.jpg';
+import Background from './popup.jpg';
 
 class Paralax extends Component {
   render() {

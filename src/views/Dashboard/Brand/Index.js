@@ -1,14 +1,80 @@
 import React, {Component} from 'react';
-import { Link } from 'react-router-dom'
-
+import { Link, withRouter } from 'react-router-dom'
+import { graphql, compose } from 'react-apollo'
+import gql from 'graphql-tag'
+import NotFound from'../../../views/404/'
 import Sidebar from '../Sidebar/'
+import List from './List'
 
 
 class Brand extends Component {
 
 
+renderList(){
+ const inList = this.props.data.allBrands || []
+
+  if(this.props.data.allBrands == ''){
+   
+    return(
+ 
+       <li>
+        
+          Belum ada Brands / Idea
+
+       </li>
+
+
+      )
+
+  }else{
+
+   return(
+
+    <div>
+    
+     {inList.map((brand) => (
+                    <List
+                      key={brand.id}
+                      brand={brand}
+                      refresh={() => this.props.data.refetch()}
+                    />
+                  ))}
+
+
+      </div>
+
+
+   )
+
+  }
+
+
+}
+
+
+
+
+
   render() {
    
+   if(window.localStorage.getItem('uid') == null && window.localStorage.getItem('space') == null ){
+
+
+    return(
+
+               <NotFound />
+
+      )
+
+
+  }
+  if (this.props.data.loading) {
+      return (
+
+          <div>Loading...</div>
+        )
+
+    }
    
     return (
 
@@ -24,7 +90,7 @@ class Brand extends Component {
           <div id="titlebar">
             <div className="row">
               <div className="col-md-12">
-                <h2>Brand Listings</h2>
+                <h2>Brand / Idea Listings</h2>
                 <nav id="breadcrumbs">
                   <ul>
                     <li><a href="#">Home</a></li>
@@ -45,66 +111,21 @@ class Brand extends Component {
           <div className="col-lg-12 col-md-12">
              <div className="dashboard-list-box margin-top-0">
 
+             <div class="sort-by">
+              <div class="sort-by-select">
+                  <a href="/me/dashboard/brand/new" class="button">Add New <i class="fa fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
+
                
-              <h4>Active Listings</h4>
+              <h4>Listings</h4>
                 <ul>
                     
-                    <li>
-                      <div className="list-box-listing">
-                        <div className="list-box-listing-img"><a href="#"><img src="../../images/listing-item-01.jpg" alt="" /></a></div>
-                        <div className="list-box-listing-content">
-                          <div className="inner">
-                            <h3><a href="#">Tom's Restaurant</a></h3>
-                            <span>964 School Street, New York</span>
-                            <div className="star-rating" data-rating="3.5">
-                              <div className="rating-counter">(12 reviews)</div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="buttons-to-right">
-                        <a href="#" className="button gray"><i className="sl sl-icon-note"></i> Edit</a>
-                        <a href="#" className="button gray"><i className="sl sl-icon-close"></i> Delete</a>
-                      </div>
-                    </li>
+                   
 
-                     <li>
-                      <div className="list-box-listing">
-                        <div className="list-box-listing-img"><a href="#"><img src="../../images/listing-item-02.jpg" alt="" /></a></div>
-                        <div className="list-box-listing-content">
-                          <div className="inner">
-                            <h3><a href="#">Tom's Restaurant</a></h3>
-                            <span>964 School Street, New York</span>
-                            <div className="star-rating" data-rating="3.5">
-                              <div className="rating-counter">(12 reviews)</div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="buttons-to-right">
-                        <a href="#" className="button gray"><i className="sl sl-icon-note"></i> Edit</a>
-                        <a href="#" className="button gray"><i className="sl sl-icon-close"></i> Delete</a>
-                      </div>
-                    </li>
+                       {this.renderList()}
 
-                     <li>
-                      <div className="list-box-listing">
-                        <div className="list-box-listing-img"><a href="#"><img src="../../images/listing-item-03.jpg" alt="" /></a></div>
-                        <div className="list-box-listing-content">
-                          <div className="inner">
-                            <h3><a href="#">Tom's Restaurant</a></h3>
-                            <span>964 School Street, New York</span>
-                            <div className="star-rating" data-rating="3.5">
-                              <div className="rating-counter">(12 reviews)</div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="buttons-to-right">
-                        <a href="#" className="button gray"><i className="sl sl-icon-note"></i> Edit</a>
-                        <a href="#" className="button gray"><i className="sl sl-icon-close"></i> Delete</a>
-                      </div>
-                    </li>
+         
 
                 </ul>
 
@@ -130,4 +151,50 @@ class Brand extends Component {
 
 
 
-export default Brand;
+const Uid = window.localStorage.getItem('uid');
+
+const QueryBrand = gql`query allBrands($id: ID!) {
+  allBrands(filter:{
+    user:{
+      id: $id
+    }
+  }, orderBy:updatedAt_DESC){
+    
+    id
+    name
+    phone
+    createdAt
+    updatedAt
+    category{
+      id
+      name
+    }
+    email
+    address
+    company
+    picName
+    picPhone
+    ownerName
+    ownerPhone
+    segments{
+      id
+      name
+    }
+    imageId
+    imageUrl
+    user{
+      id
+    }
+
+  }
+
+     
+}`
+
+
+
+const ListPageWithData = graphql(QueryBrand, {
+  options: { variables: { id: Uid } }
+})(Brand)
+
+export default ListPageWithData

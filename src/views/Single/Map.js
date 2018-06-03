@@ -48,7 +48,7 @@ class Maps extends Component {
    
          <Map
           id="map1"
-          apiKey="AIzaSyB9lgF3DLqYCw-0NgLqzPJpxI1k-iVBnFY"
+          apiKey="AIzaSyBCGEeC408mAsxFtm1yG62A-l9gDFcdyXg"
           mapOptions= {mapOptions}
           style={{ width: '100%', height: 400, float: "left" }}
           onLoad={setMarker}

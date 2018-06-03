@@ -37,32 +37,28 @@ renderImage(){
 
     	
 
-    	  <div className="col-lg-6 col-md-12">
-					
-
-                   <a href={`/space/detail/${this.props.hit.slug}`} className="listing-item-container compact">
-						<div className="listing-item">
-							{this.renderImage()}
-							<div className="listing-item-details">
+    	  <div className="col-lg-4 col-md-12">
+          <a href={`/space/detail/${this.props.hit.slug}`} className="listing-item-container">
+            <div className="listing-item">
+              {this.renderImage()}
+              <div className="listing-item-details">
                       <ul>
                         <li>{this.props.hit.area.name}</li>
                       </ul>
                     </div>
 
-
-							<div className="listing-badge now-open">Now Open</div>
-
-							<div className="listing-item-content">
-								<div className="numerical-rating" >{this.props.hit.category.name}</div>
-								<h3>{this.props.hit.name} <i className="verified-icon"></i></h3>
-								<span></span>
-							</div>
-							
-						</div>
-					</a>
-
-				 </div>
-
+              <div className="listing-badge now-open">Now Open</div>
+              
+              <div className="listing-item-content">
+                <span className="tag">{this.props.hit.category.name}</span>
+                <h3>{this.props.hit.name} <i className="verified-icon"></i></h3>
+                <span></span>
+              </div>
+    
+            </div>
+            
+          </a>
+         </div>
 
 
       

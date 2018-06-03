@@ -1,8 +1,19 @@
 import React, {Component} from 'react';
-
+import { withRouter } from 'react-router-dom'
+import {Container, Row, Col, CardGroup, Card, CardBlock, Button, Input, InputGroup, InputGroupAddon} from "reactstrap";
+import { graphql, compose } from 'react-apollo'
+import gql from 'graphql-tag'
 
 
 class Login extends Component {
+
+state = {
+    email: '',
+    password: '',
+  }
+
+
+
   render() {
     return (
       <div>
@@ -28,13 +39,14 @@ class Login extends Component {
 										<div className="tabs-container alt">
 
 										  <div className="tab-content" id="tab1" >
-												<form method="post" className="login">
+												
 
 													<p className="form-row form-row-wide">
 														
 															
-															<input type="text" className="input-text" name="email" id="username" 
-															onChange={(e) => this.setState({email: e.target.value})}
+															<input type="text" className="input-text" name="email" 
+															  value={this.state.email}
+															  onChange={(e) => this.setState({email: e.target.value})}
 
 															/>
 														
@@ -43,18 +55,19 @@ class Login extends Component {
 													<p className="form-row form-row-wide">
 														
 															
-															<input type="text" className="input-text" name="email" id="username" 
-															onChange={(e) => this.setState({email: e.target.value})}
+															<input type="password" className="input-text" name="password"
+															 value={this.state.password} 
+															onChange={(e) => this.setState({password: e.target.value})}
 
 															/>
 														
 													</p>
 													<div className="form-row">
-														<input type="submit" className="button border margin-top-5" name="login" value="Login" />
+														 <Button color="primary" className="button"  onClick={this.authenticateUser} style={{marginLeft:-15}}>Login</Button>
 														
 													</div>
 													
-												</form>
+												
 											</div>
 
 										</div>
@@ -77,6 +90,40 @@ class Login extends Component {
       </div>
     )
   }
+  authenticateUser = async () => {
+    const {email, password} = this.state
+
+    const response = await this.props.authenticateUserMutation({variables: {email, password}})
+    localStorage.setItem('space', response.data.authenticateUser.token)
+    this.props.history.replace('/')
+    window.location.reload();
+    
+  }
 }
 
-export default Login;
+const AUTHENTICATE_USER_MUTATION = gql`
+  mutation AuthenticateUserMutation ($email: String!, $password: String!) {
+    authenticateUser(email: $email, password: $password) {
+      token
+    }
+  }
+`
+
+const LOGGED_IN_USER_QUERY = gql`
+  query LoggedInUserQuery {
+    loggedInUser {
+      id
+      name
+      status
+      jabatan
+    }
+  }
+`
+
+export default compose(
+  graphql(AUTHENTICATE_USER_MUTATION, {name: 'authenticateUserMutation'}),
+  graphql(LOGGED_IN_USER_QUERY, {
+    name: 'loggedInUserQuery',
+    options: { fetchPolicy: 'network-only' }
+  })
+)(withRouter(Login))
