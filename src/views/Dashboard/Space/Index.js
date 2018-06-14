@@ -7,19 +7,19 @@ import Sidebar from '../Sidebar/'
 import List from './List'
 
 
-class Brand extends Component {
+class Dspace extends Component {
 
 
 renderList(){
- const inList = this.props.data.allBrands || []
+ const inList = this.props.data.allPartners || []
 
-  if(this.props.data.allBrands == ''){
+  if(this.props.data.allPartners == ''){
    
     return(
  
        <li>
         
-          Belum ada Brands / Idea
+          Belum ada Space
 
        </li>
 
@@ -32,10 +32,10 @@ renderList(){
 
     <div>
     
-     {inList.map((brand) => (
+     {inList.map((partner) => (
                     <List
-                      key={brand.id}
-                      brand={brand}
+                      key={partner.id}
+                      partner={partner}
                       refresh={() => this.props.data.refetch()}
                     />
                   ))}
@@ -90,12 +90,12 @@ renderList(){
           <div id="titlebar">
             <div className="row">
               <div className="col-md-12">
-                <h2>Brand / Idea Listings</h2>
+                <h2>Space Listings</h2>
                 <nav id="breadcrumbs">
                   <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Dashboard</a></li>
-                    <li>Brands</li>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/me/dashboard">Dashboard</a></li>
+                    <li>Space</li>
                   </ul>
                 </nav>
               </div>
@@ -113,7 +113,7 @@ renderList(){
 
              <div className="sort-by">
               <div className="sort-by-select">
-                  <a href="/me/dashboard/brand/new" className="button">Add New <i className="fa fa-arrow-circle-right"></i></a>
+                  <a href="/me/dashboard/space/new" className="button">Add New <i className="fa fa-arrow-circle-right"></i></a>
               </div>
             </div>
 
@@ -153,8 +153,8 @@ renderList(){
 
 const Uid = window.localStorage.getItem('uid');
 
-const QueryBrand = gql`query allBrands($id: ID!) {
-  allBrands(filter:{
+const QueryBrandx = gql`query allPartners($id: ID!) {
+ allPartners(filter:{
     user:{
       id: $id
     }
@@ -162,26 +162,45 @@ const QueryBrand = gql`query allBrands($id: ID!) {
     
     id
     name
-    phone
-    createdAt
-    updatedAt
+    address
+    nearby
+    imageId
+    imageUrl
+    picName
+    picPhone
+    inclusions{
+      id
+      name
+    }
+    exclusions{
+      id
+      name
+    }
+     website
+    status
+    workingHour
+    facebook
+    instagram
+    area{
+      id
+      name
+    }
+    visitors{
+      id
+      name
+    }
+    facilities{
+      id
+      name
+    }
     category{
       id
       name
     }
-    email
-    address
-    company
-    picName
-    picPhone
-    ownerName
-    ownerPhone
-    segments{
+    spaces{
       id
-      name
+      title
     }
-    imageId
-    imageUrl
     user{
       id
     }
@@ -193,8 +212,8 @@ const QueryBrand = gql`query allBrands($id: ID!) {
 
 
 
-const ListPageWithData = graphql(QueryBrand, {
+const ListPageWithData = graphql(QueryBrandx, {
   options: { variables: { id: Uid } }
-})(Brand)
+})(Dspace)
 
 export default ListPageWithData

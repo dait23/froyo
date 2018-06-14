@@ -12,7 +12,7 @@ class Area extends Component {
 			<div className="row">
 
 				<div className="col-md-12">
-					<h3 className="headline centered margin-bottom-35 margin-top-70">Popular Area <span>Browse listings in popular places</span></h3>
+					<h3 className="headline centered margin-bottom-35 margin-top-70">Ekspansi Usaha Anda Sekarang Juga!<span>Sewa lapak sesuai BUDGET anda, bisa per hari, minggu atau bulanan.</span></h3>
 				</div>
 				
 				<div className="col-md-5">

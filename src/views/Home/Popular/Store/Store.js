@@ -14,7 +14,10 @@ global.fetch = fetch;
 // queries and mutations
 const allPopularQuery = gql`
   {
-    allPartners(orderBy: read_DESC, first:6){
+    allPartners(filter:{
+
+      status: 1
+    },orderBy: read_DESC, first:6){
     id
     name
     slug

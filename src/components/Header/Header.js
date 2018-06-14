@@ -131,11 +131,12 @@ renderButton(){
          My Account
         </DropdownToggle>
         <DropdownMenu >
-          <a href="/me/dashboard"><DropdownItem>Dashboard</DropdownItem></a>
-          <a href="/me/dashboard/brand"><DropdownItem>Ideas</DropdownItem></a>
-          <a href="/me/dashboard/inquiry"><DropdownItem>Inquiry</DropdownItem></a>
-          <a href="/me/dashboard/messages"><DropdownItem>Messages</DropdownItem></a>
-          <a href="/me/dashboard/profile"><DropdownItem>Profile</DropdownItem></a>
+          <a href="/me/dashboard" style={{cursor:'pointer'}}><DropdownItem>Dashboard</DropdownItem></a>
+          <a href="/me/dashboard/space" style={{cursor:'pointer'}}><DropdownItem>My Space</DropdownItem></a>
+          <a href="/me/dashboard/brand" style={{cursor:'pointer'}}><DropdownItem>My Ideas</DropdownItem></a>
+          <a href="/me/dashboard/brand-inquiry" style={{cursor:'pointer'}}><DropdownItem>Inquiry</DropdownItem></a>
+          <a href="/me/dashboard/messages" style={{cursor:'pointer'}}><DropdownItem>Messages</DropdownItem></a>
+          <a href="/me/dashboard/profile" style={{cursor:'pointer'}}><DropdownItem>Profile</DropdownItem></a>
           <DropdownItem><a onClick={this._logout} style={{cursor:'pointer'}}> Logout</a></DropdownItem>
         </DropdownMenu>
       </Dropdown>

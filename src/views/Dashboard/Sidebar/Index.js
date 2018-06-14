@@ -30,10 +30,16 @@ _logout = () => {
               <ul data-submenu-title="Main">
                 <li className="active"><a href="/me/dashboard"><i className="sl sl-icon-settings"></i> Dashboard</a></li>
                 <li><a href="/me/dashboard/messages"><i className="sl sl-icon-envelope-open"></i> Messages </a></li>
-                <li><a href="/me/dashboard/inquiry"><i className="fa fa-calendar-check-o"></i> Inquiry</a></li>
+               
+              </ul>
+
+              <ul data-submenu-title="Inquiry">
+                  <li><a href="/me/dashboard/brand-inquiry"><i className="fa fa-calendar-check-o"></i> Brand Inquiry</a></li>
+                   <li><a href="/me/dashboard/space-inquiry"><i className="fa fa-calendar-check-o"></i> Space Inquiry</a></li>
               </ul>
               
               <ul data-submenu-title="Listings">
+              <li><a href="/me/dashboard/space"><i className="sl sl-icon-layers"></i> My Space </a></li>
               <li><a href="/me/dashboard/brand"><i className="sl sl-icon-layers"></i> My Brand / Idea</a></li>
                 
 

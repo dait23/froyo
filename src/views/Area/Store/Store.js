@@ -20,7 +20,9 @@ const allQuery = gql`
     slug
     imageId
     imageUrl
-    _partnersMeta{
+    _partnersMeta(filter:{
+      status: 1
+    }){
       count
     }
   }

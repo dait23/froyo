@@ -80,6 +80,12 @@ const Login = Loadable({
   timeout: 10000, // 10 second
 });
 
+const Cart = Loadable({
+ loader: () => fakeDelay(500).then(() => import('./views/Cart/')),
+  loading: Loading,
+  timeout: 10000, // 10 second
+});
+
 const Area = Loadable({
  loader: () => fakeDelay(500).then(() => import('./views/Area/')),
   loading: Loading,
@@ -119,14 +125,32 @@ const Inquiry = Loadable({
   timeout: 10000, // 10 second
 });
 
+const Inquiryx = Loadable({
+ loader: () => fakeDelay(500).then(() => import('./views/Dashboard/Inquiry/Space')),
+  loading: Loading,
+  timeout: 10000, // 10 second
+});
+
 const Brand = Loadable({
  loader: () => fakeDelay(500).then(() => import('./views/Dashboard/Brand/')),
   loading: Loading,
   timeout: 10000, // 10 second
 });
 
+const Dspace = Loadable({
+ loader: () => fakeDelay(500).then(() => import('./views/Dashboard/Space/')),
+  loading: Loading,
+  timeout: 10000, // 10 second
+});
+
 const NewBrand = Loadable({
  loader: () => fakeDelay(500).then(() => import('./views/Dashboard/Brand/New/')),
+  loading: Loading,
+  timeout: 10000, // 10 second
+});
+
+const NewSpace = Loadable({
+ loader: () => fakeDelay(500).then(() => import('./views/Dashboard/Space/New/')),
   loading: Loading,
   timeout: 10000, // 10 second
 });
@@ -188,12 +212,16 @@ render(
              <Route exact path="/space/detail/:slug" component={Single} />
              <Route exact path="/space/:slug" component={Space} />
              <Route exact path="/contact" component={Contact} />
+             <Route exact path="/space-list" component={Cart} />
              <Route exact path="/login" component={Login} />
              <Route exact path="/me/dashboard" component={DashboardMember} />
              <Route exact path="/me/dashboard/messages" component={Messages} />
-             <Route exact path="/me/dashboard/messages/detail/:id" component={DetailMessages} />
-             <Route exact path="/me/dashboard/inquiry" component={Inquiry} />
+             <Route exact path="/me/dashboard/messages/detail/:userId/:partnerId" component={DetailMessages} />
+             <Route exact path="/me/dashboard/brand-inquiry" component={Inquiry} />
+             <Route exact path="/me/dashboard/space-inquiry" component={Inquiryx} />
              <Route exact path="/me/dashboard/brand" component={Brand} />
+             <Route exact path="/me/dashboard/space" component={Dspace} />
+             <Route exact path="/me/dashboard/space/new" component={NewSpace} />
              <Route exact path="/me/dashboard/brand/new" component={NewBrand} />
              <Route exact path="/me/dashboard/brand/edit/:id" component={EditBrand} />
              <Route exact path="/me/dashboard/profile" component={Profile} />

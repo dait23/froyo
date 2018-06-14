@@ -2,11 +2,11 @@ import React, {Component} from 'react';
 import { Link, withRouter } from 'react-router-dom'
 import { graphql, compose } from 'react-apollo'
 import gql from 'graphql-tag'
-import NotFound from'../../../views/404/'
-import Sidebar from '../Sidebar/'
+import NotFound from'../../../404/'
+import Sidebar from '../../Sidebar/'
 import List from './List'
 
-class Inquiry extends Component {
+class Inquiryx extends Component {
 
 
 renderList(){
@@ -160,23 +160,23 @@ const Uid = window.localStorage.getItem('uid');
 
 const QueryDraft = gql`query allPostsDraft($id: ID!) {
   allInquiries(filter:{
-    user:{
-      id: $id
+    partner:{
+      user:{
+        id: $id
+      }
     }
   }, orderBy:updatedAt_DESC){
     id
     startAt
     endAt
     title
-    price
     status
     isApprove
-   
-    space{
+    partner{
       id
-      title
-      imageId
+      name
       imageUrl
+      imageId
     }
     brand{
       id
@@ -195,6 +195,6 @@ const QueryDraft = gql`query allPostsDraft($id: ID!) {
 
 const ListPageWithData = graphql(QueryDraft, {
   options: { variables: { id: Uid } }
-})(Inquiry)
+})(Inquiryx)
 
 export default ListPageWithData

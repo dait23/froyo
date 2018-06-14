@@ -44,7 +44,7 @@ renderImage(){
 
             
                <li className="unread">
-                          <Link to={`/me/dashboard/messages/detail/${this.props.pesan.id}`}>
+                          <Link to={`/me/dashboard/messages/detail/${this.props.pesan.user.id}/${this.props.pesan.partner.id}`}>
                             <div className="message-avatar">{this.renderImage()}</div>
 
                             <div className="message-by">

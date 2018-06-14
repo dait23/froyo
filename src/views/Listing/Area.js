@@ -142,6 +142,14 @@ class ListingArea extends Component {
 								            translations={{ noResults: 'No matching Category' }}
                                            
 								            />
+					<RefinementList 
+								            attribute="status"
+								            defaultRefinement={[
+										      '1'
+										    ]}
+								            translations={{ noResults: 'No matching Category' }}
+                                           
+								            />
 
 					</div>
 

@@ -216,7 +216,7 @@ onImageDrop(files) {
           <div id="titlebar">
             <div className="row">
               <div className="col-md-12">
-                <h2>My Profile</h2>
+                <h2>Profile</h2>
                 <nav id="breadcrumbs">
                   <ul>
                     <li><a href="/">Home</a></li>
@@ -237,13 +237,36 @@ onImageDrop(files) {
               <div className="col-lg-6 col-md-12">
                   <div className="dashboard-list-box margin-top-0">
 
+
                     <h4 className="gray">Profile Details</h4>
                       <div className="dashboard-list-box-static">
 
+                       <div className="row">
+                         
+                         <div className="col-md-6">
+                            
                         <div className="edit-profile-photo">
                           {this.renderThumb()}
                          
                         </div>
+
+                         </div>
+                         <div className="col-md-6">
+                        
+
+                         <Dropzone
+                            onDrop={this.onImageDrop.bind(this)}
+                            multiple={false}
+                            accept="image/*">
+                            <div>Drop an image or click to select a file to update avatar.</div>
+                          </Dropzone>
+                          
+
+
+                         </div>
+
+                       </div>
+
                
 
                       

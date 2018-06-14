@@ -3,7 +3,7 @@ import { Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
-import {Cloudinary_Name, No_Image} from '../../Api/';
+import {Cloudinary_Name, No_Image} from '../../../Api/';
 import {Image} from 'cloudinary-react';
 
 import moment from 'moment';
@@ -69,17 +69,17 @@ renderStatus(){
 
    renderImage(){
 
-    if(this.props.inquiry.space.imageId == ''){
+    if(this.props.inquiry.partner.imageId == ''){
 
        return(
-           <img src={No_Image} alt={this.props.inquiry.space.title}/>
+           <img src={No_Image} alt={this.props.inquiry.partner.name}/>
 
         )
 
     }else{
 
       return(
-        <Image cloudName={Cloudinary_Name} publicId={this.props.inquiry.space.imageId} crop="thumb"  width="300"/>
+        <Image cloudName={Cloudinary_Name} publicId={this.props.inquiry.partner.imageId} crop="thumb"  width="150"/>
 
       )
     }
@@ -99,14 +99,14 @@ renderStatus(){
             
                <li className="approved-pending">
                             <div className="list-box-listing bookings">
-                              <div className="list-box-listing-img" style={{borderRadius:'0', maxWidth:'300px', maxHeight:'100%'}}>
+                              <div className="list-box-listing-img" style={{borderRadius:'0'}}>
                                 {this.renderImage()}
 
                               </div>
                               <div className="list-box-listing-content">
                                 <div className="inner">
-                                  <h3>{this.props.inquiry.space.title} {this.renderStatus()}</h3>
-                                  <span className="margin-bottom-20">Rp. {this.props.inquiry.price}</span>
+                                  <h3>{this.props.inquiry.partner.name} {this.renderStatus()}</h3>
+
                                   <div className="inner-booking-list" style={{fontSize:'14px'}}>
                                    <strong>Masuk &nbsp; &nbsp;: &nbsp;</strong>
                                     <ul className="booking-list">
@@ -136,7 +136,7 @@ renderStatus(){
                               </div>
                             </div>
                             <div className="buttons-to-right">
-                              <a href="#" className="button gray reject" style={{display:'none'}}><i className="sl sl-icon-close"></i> Cancel</a>
+                              <a href="#" className="button gray reject"><i className="sl sl-icon-close"></i> Cancel</a>
                             </div>
                           </li>
            

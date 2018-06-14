@@ -9,8 +9,8 @@ class How extends Component {
 			<div className="row">
 				<div className="col-md-12">
 					<h2 className="headline centered margin-top-80">
-						Plan The Vacation of Your Dreams 
-						<span className="margin-top-25">Explore some of the best tips from around the world from our partners and friends.  Discover some of the most popular listings in Sydney.</span>
+						3 Langkah Mudah Untuk Sewa Lapak
+						<span className="margin-top-25">Sewa Lapak, wujudkan ide usahamu.</span>
 					</h2>
 				</div>
 			</div>
@@ -20,22 +20,22 @@ class How extends Component {
 				<div className="col-md-4">
 					<div className="icon-box-2 with-line">
 						<i className="im im-icon-Map2"></i>
-						<h3>Find Interesting Place</h3>
-						<p>Proin dapibus nisl ornare diam varius tempus. Aenean a quam luctus, finibus tellus ut, convallis eros sollicitudin turpis.</p>
+						<h3>Cari lapak yang di butuhkan dengan MUDAH</h3>
+						<p>Temukan ratusan ruangan di berbagai lokasi strategis dengan kurang dari satu menit</p>
 					</div>
 				</div>
 				<div className="col-md-4">
 					<div className="icon-box-2 with-line">
 						<i className="im im-icon-Mail-withAtSign"></i>
-						<h3>Contact a Few Owners</h3>
-						<p>Maecenas pulvinar, risus in facilisis dignissim, quam nisi hendrerit nulla, id vestibulum metus nullam viverra porta purus.</p>
+						<h3>Kirim Booking Enquiry kepada pemilik tempat</h3>
+						<p>Jelaskan ide anda! Yakinkan pemilik tempat untuk mau sewa tempatnya dengan menulis kegiatan apa yang mau kamu jalankan, produk dan merknya, serta kirim foto pendungkung.</p>
 					</div>
 				</div>
 				<div className="col-md-4">
 					<div className="icon-box-2">
 						<i className="im im-icon-Checked-User"></i>
-						<h3>Make a Reservation</h3>
-						<p>Faucibus ante, in porttitor tellus blandit et. Phasellus tincidunt metus lectus sollicitudin feugiat pharetra consectetur.</p>
+						<h3>Buka Stan Anda!</h3>
+						<p>Setelah pemilik tempat konfirmasi dengan ide usahamu, lakukan pembayaran dan segera jualan!</p>
 					</div>
 				</div>
 			</div>

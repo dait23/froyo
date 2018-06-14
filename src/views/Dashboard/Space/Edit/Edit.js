@@ -44,7 +44,7 @@ class EditBrand extends Component {
       categoryId: '',
       categoryName: '',
       userId: localStorage.getItem('uid'),
-      tipeId: '',
+      typeId: '',
       typeName: '',
       remarks: '',
       facebook: '',
@@ -139,7 +139,7 @@ class EditBrand extends Component {
               user{
                 id
               }
-              tipe{
+              type{
                 id
                 name
               }
@@ -189,9 +189,9 @@ class EditBrand extends Component {
               facebook:results.data.Brand.facebook,
               instagram:results.data.Brand.instagram,
               twitter:results.data.Brand.twitter,
-              tipeId:results.data.Brand.tipe.id,
+              typeId:results.data.Brand.type.id,
               userId:results.data.Brand.user.id,
-              tipeName:results.data.Brand.tipe.name,
+              typeName:results.data.Brand.type.name,
               categoryId:results.data.Brand.category.id,
               categoryName:results.data.Brand.category.name,
               loading:false
@@ -249,8 +249,8 @@ class EditBrand extends Component {
      
      var fetch = require('graphql-fetch')(MainApi)
       var query = `
-            query allEventTypes{
-              allEventTypes (orderBy: createdAt_DESC) {
+            query allBrandTypes{
+              allBrandTypes (orderBy: createdAt_DESC) {
                 id
                 name
 
@@ -273,7 +273,7 @@ class EditBrand extends Component {
             //var BlogCategory = results.data.BlogCategory
 
             that.setState({
-              dataz : results.data.allEventTypes,
+              dataz : results.data.allBrandTypes,
               loading: false
 
              });
@@ -293,18 +293,23 @@ class EditBrand extends Component {
             mutation updateBrand (
               $id: ID!,
               $name: String,
+              $company: String, 
               $email: String, 
               $address: String, 
               $phone: String, 
+              $picName: String,
+              $picPhone: String, 
               $imageId: String,
               $imageUrl: String,  
               $categoryId: ID, 
-              $tipeId: ID, 
+              $typeId: ID, 
               $facebook: String, 
               $instagram: String, 
               $website: String,
               $twitter: String,
               $description: String, 
+              $ownerName: String,
+              $ownerPhone: String,
             ){
               updateBrand (
               id: $id,
@@ -315,10 +320,10 @@ class EditBrand extends Component {
               picName:$picName,
               picPhone:$picPhone,
               imageUrl: $imageUrl,
-              imageId:$imageid,
+              imageId:$imageId,
               address: $address,
               categoryId :$categoryId,
-              tipeId: $typeId,
+              typeId: $typeId,
               facebook: $facebook,
               instagram: $instagram,
               twitter: $twitter,
@@ -335,18 +340,26 @@ class EditBrand extends Component {
           var queryVars = {
             id: this.state.id,
             name: this.state.name,
+            company: this.state.company,
+            picName: this.state.picName,
+            picPhone: this.state.picPhone,
             email: this.state.email,
             phone: this.state.phone,
+            source: this.state.source,
             imageId: this.state.imageId,
             imageUrl: this.state.imageUrl,
             address: this.state.address,
             description: this.state.description,
             categoryId: this.state.categoryId,
-            tipeId: this.state.tipeId, 
+            typeId: this.state.typeId, 
             facebook: this.state.facebook, 
             instagram: this.state.instagram,
             twitter: this.state.twitter,
             website: this.state.website, 
+            picName: this.state.picName, 
+           picPhone: this.state.picPhone, 
+           ownerName: this.state.ownerName, 
+           ownerPhone:this.state.ownerPhone, 
           }
           var opts = {
             // custom fetch options
@@ -400,11 +413,11 @@ renderTipe(){
 
       return(
       
-        <select id="select" value={this.state.tipeId}  name="tipeId" className="form-control" onChange={(e) => this.setState({tipeId: e.target.value})}>
+        <select id="select" value={this.state.typeId}  name="typeId" className="form-control" onChange={(e) => this.setState({typeId: e.target.value})}>
                         
 
-            {this.state.dataz.map((tipex) => (
-                        <option key={tipex.id} value={tipex.id}>{tipex.name}</option>
+            {this.state.dataz.map((tipe) => (
+                        <option key={tipe.id} value={tipe.id}>{tipe.name}</option>
                        ))}   
         </select>
       )
@@ -470,12 +483,12 @@ renderTipe(){
                 <div className="row with-forms">
 
                   <div className="col-md-6">
-                    <h5>Kategori dari Brand anda</h5>
+                    <h5>Category</h5>
                    {this.renderKategori()}
                   </div>
 
                   <div className="col-md-6">
-                    <h5>Event apa yang anda mau lakukan di space ini ? </h5>
+                    <h5>Type </h5>
                    {this.renderTipe()}
                   </div>
 
@@ -484,8 +497,54 @@ renderTipe(){
 
                  
 
+                 <div className="row with-forms">
+
+                 <div className="col-md-6">
+                    <h5>Company </h5>
+                    <input type="text" placeholder="Company" value={this.state.company}  onChange={(e) => this.setState({company: e.target.value})}/>
+                  </div>
+
+                   
+                 <div className="col-md-6">
+                    <h5>Address</h5>
+                    <input type="text" placeholder="Address" value={this.state.address}  onChange={(e) => this.setState({address: e.target.value})}/>
+                  </div>
 
 
+                 </div>
+
+
+                 <div className="row with-forms">
+
+                 <div className="col-md-6">
+                    <h5>Owner Name</h5>
+                    <input type="text" placeholder="Owner Name" value={this.state.ownerName}  onChange={(e) => this.setState({ownerName: e.target.value})}/>
+                  </div>
+
+                   
+                 <div className="col-md-6">
+                    <h5>Owner Phone</h5>
+                    <input type="text" placeholder="Owner Phone" value={this.state.ownerPhone}  onChange={(e) => this.setState({ownerPhone: e.target.value})}/>
+                  </div>
+
+
+                 </div>
+
+                 <div className="row with-forms">
+
+                 <div className="col-md-6">
+                    <h5>Pic Name</h5>
+                    <input type="text" placeholder="Pic Name" value={this.state.picName}  onChange={(e) => this.setState({picName: e.target.value})}/>
+                  </div>
+
+                   
+                 <div className="col-md-6">
+                    <h5>Pic Phone</h5>
+                    <input type="text" placeholder="Pic Phone" value={this.state.picPhone}  onChange={(e) => this.setState({picPhone: e.target.value})}/>
+                  </div>
+
+
+                 </div>
 
 
                  </div>
@@ -501,8 +560,8 @@ renderTipe(){
 
           
                     <div className="form">
-                      <h5>Space ini mau digunakan untuk apa ?</h5>
-                      <textarea className="WYSIWYG" name="description" cols="40" placeholder="Contoh: Perusahaan kita bergerak dibidang fashion untiuk wanita denagn merek abcd, space ini mau digunakan untuk branding merk kita, sekalian untuk jualan"  rows="3" id="summary" spellCheck="true" value={this.state.description}  onChange={(e) => this.setState({description: e.target.value})}>{this.state.description}</textarea>
+                      <h5>Description</h5>
+                      <textarea className="WYSIWYG" name="description" cols="40" rows="3" id="summary" spellCheck="true" value={this.state.description}  onChange={(e) => this.setState({description: e.target.value})}>{this.state.description}</textarea>
                     </div>
 
         

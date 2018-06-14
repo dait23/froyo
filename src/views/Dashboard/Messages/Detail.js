@@ -1,17 +1,180 @@
 import React, {Component} from 'react';
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
+import { graphql, compose } from 'react-apollo'
+import {MainApi} from '../../Api/';
+import gql from 'graphql-tag'
 
 import Sidebar from '../Sidebar/'
-
+import List from './Dlist'
 
 import Avatar from './dashboard-avatar.jpg'
 
 class DetailMessages extends Component {
+  
+  constructor(props) {
+    super(props)
+    this.state = {
+      data:[],
+      loading: true,
+    }
+  
+  }
 
+
+////////////////// did mount 
+  componentDidMount() {
+    var that = this;
+    that.getData();
+  }
+////////////////////////
+
+////////////////////get data
+
+  getData(){
+     var that = this;
+     that.setState({
+          loading: true
+      });
+     var fetch = require('graphql-fetch')(MainApi)
+
+          var query = `
+            query allMessages($userId: ID, $partnerId: ID) {
+              allMessages(
+               filter:{
+                  AND:[{
+                   user:{
+                    id:$userId
+                  },
+                    partner:{
+                      id: $partnerId
+                    }
+                    
+                  }]
+                },orderBy:updatedAt_DESC
+              ){
+                id
+                 content
+                 createdAt
+                updatedAt 
+                 partner{
+                  id
+                  name
+                  imageId
+                  imageUrl
+                }
+                user{
+                  id
+                  name
+                  facebookUserId
+                  member{
+                    imageId
+                    imageUrl
+                  }
+                } 
+             
+              }
+            }
+          `
+          var queryVars = {
+            userId: this.props.match.params.userId,
+            partnerId: this.props.match.params.partnerId,
+          }
+          var opts = {
+            // custom fetch options
+          }
+
+
+          fetch(query, queryVars, opts).then(function (results) {
+
+            //console.log(results)
+            if (results.errors) {
+             // console.log('cccc')
+              //...
+             // window.location= "/";
+            }
+            //var BlogCategory = results.data.BlogCategory
+
+
+           if ( results.data.allMessages == ''){
+
+               window.location= "/404";
+
+           }else{
+
+              that.setState({
+                data: results.data.allMessages,
+                id:results.data.allMessages.id,
+                loading:false
+             });
+
+            //console.log(that.state.data);
+
+           }
+
+            
+           
+           
+          })
+ 
+
+  }
+
+/////////////////
+
+renderList(){
+ const inList = this.state.data || []
+
+  if(this.state.data == ''){
+   
+    return(
+ 
+       <li>
+        
+          Belum ada Pesan
+
+       </li>
+
+
+      )
+
+  }else{
+
+   return(
+
+    <div>
+    
+     {inList.map((pesan) => (
+                    <List
+                      key={pesan.id}
+                      pesan={pesan}
+                      
+                    />
+                  ))}
+
+
+      </div>
+
+
+   )
+
+  }
+
+
+}
+
+
+////////////////
 
   render() {
-   
-   
+    if (this.state.loading) {
+      return (
+
+        <div></div>
+
+        )
+
+    } 
+
     return (
 
 
@@ -47,26 +210,14 @@ class DetailMessages extends Component {
 
                 <div className="messages-container margin-top-0">
                    
-                   <div className="messages-headline">
-                    <h4>Kathy Brown</h4>
-                     <a href="#" className="message-action"><i className="sl sl-icon-trash"></i> Delete Conversation</a>
-                  </div>
+                   
 
                   <div className="messages-container-inner">
 
         
                   <div className="message-content">
 
-                     <div className="message-bubble">
-                      <div className="message-avatar"><img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&amp;s=70" alt="" /></div>
-                      <div className="message-text"><p>Hello, I want to talk about your great listing! Morbi velit eros, sagittis in facilisis non, rhoncus et erat. Nam posuere tristique sem, eu ultricies tortor lacinia neque imperdiet vitae.</p></div>
-                    </div>
-
-                    <div className="message-bubble me">
-                      <div className="message-avatar"><img src={Avatar} alt="" /></div>
-                      <div className="message-text"><p>Nam ut hendrerit orci, ac gravida orci. Cras tristique rutrum libero at consequat. Vestibulum vehicula neque maximus sapien iaculis, nec vehicula sapien fringilla.</p></div>
-                    </div>
-
+                       {this.renderList()}
 
                   </div>
 

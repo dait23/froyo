@@ -119,6 +119,18 @@ class Listing extends Component {
 							</div>
 						</div>
 
+						<div style={{display:'none'}}>
+					<RefinementList 
+								            attribute="status"
+								            defaultRefinement={[
+										      '1'
+										    ]}
+								            translations={{ noResults: 'No matching Category' }}
+                                           
+								            />
+
+					</div>
+
 					</div>
 
 					 </div>
@@ -140,7 +152,7 @@ class Listing extends Component {
 
 								
 									<div>
-								      <div style={{marginLeft:'15px', marginTop:'10px'}}> <ClearRefinements /></div>
+								      
 								      <h3 className="margin-top-30 margin-bottom-20 margin-left-15">Area</h3>
 	
 								         <MenuSelect
@@ -174,18 +186,7 @@ class Listing extends Component {
 									          className="checkboxes one-in-row margin-bottom-5"
 									        />
 
-									        <h3 className="margin-top-30 margin-bottom-20 margin-left-15">Inclusions</h3>
-										   <RefinementList
-									          attribute="inclusions.name"
-									          translations={{ noResults: 'No matching Inclusion' }}
-									          className="checkboxes one-in-row margin-bottom-5"
-									        />
-									       <h3 className="margin-top-30 margin-bottom-20 margin-left-15">Exclusion</h3>
-										   <RefinementList
-									          attribute="exclusions.name"
-									          translations={{ noResults: 'No matching Exclusion' }}
-									          className="checkboxes one-in-row margin-bottom-5"
-									        />
+									       
                                           
 									</div>
 								</div>

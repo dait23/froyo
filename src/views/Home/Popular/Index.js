@@ -139,8 +139,8 @@ const Partner = inject('partnerStore')(
 				<div className="row">
                    <div className="col-md-12">
 						<h3 className="headline centered margin-bottom-45">
-							Most Visited Places
-							<span>Discover top-rated local businesses</span>
+							 Rekomendasi Tempat Usaha terbaru
+							<span>Cari, Booking, dan mulai usaha anda dengan mudah dan cepat.</span>
 						</h3>
 					</div>
 

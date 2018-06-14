@@ -4,6 +4,7 @@ import { Link} from 'react-router-dom'
 import {MainApi, Cloudinary_Name, No_Thumb} from '../Api/';
 import {Image} from 'cloudinary-react';
 import PropTypes from 'prop-types';
+import { toast, ToastContainer } from 'react-toastify';
 import MetaTags from 'react-meta-tags';
 // import Gallery from 'react-photo-gallery';
 // import Lightbox from 'react-images';
@@ -53,7 +54,10 @@ class Space extends Component {
     super(props)
     this.state = {
      // startDate: moment(),
-
+      startAt:'',
+      endAt:'',
+      spaceId:'',
+      price:'',
       data:'',
       loading: true,
     }
@@ -61,6 +65,8 @@ class Space extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleChangex = this.handleChangex.bind(this);
+     this.onUpdate = this.onUpdate.bind(this);
+this.handleChangez = this.handleChangex.bind(this)
   
   }
 
@@ -79,6 +85,11 @@ class Space extends Component {
 
          console.log('endAt:', day);
     }
+
+ handleChangez = (price) => {
+        this.setState({ price : price.value});
+        console.log(`brand: ${price.value}`);
+      }
 
 
   
@@ -115,6 +126,7 @@ class Space extends Component {
                 price7
                 price30
                 partner{
+                  id
                   address
                   area{
                     name
@@ -163,6 +175,7 @@ class Space extends Component {
                 description:results.data.Space.description,
                 rules:results.data.Space.rules,
                 address:results.data.Space.partner.address,
+                partnerId:results.data.Space.partner.id,
                 area:results.data.Space.partner.area.name,
                 nearby:results.data.Space.nearby,
                 price1:results.data.Space.price1,
@@ -186,6 +199,62 @@ class Space extends Component {
  
 
   }
+  /////////////////////////
+
+  onUpdate() {
+
+     var that = this;
+     var fetch = require('graphql-fetch')(MainApi)
+
+          var query = `
+            mutation createCart (
+              $endAt: String
+              $startAt: String
+              $spaceId: ID
+              $price: String
+              $userId: ID
+            ){
+              createCart (
+              endAt: $endAt,
+              startAt: $startAt,
+              spaceId: $spaceId,
+              price: $price,
+              userId: $userId
+      
+              ){
+                id           
+              }
+            }
+          `
+          var queryVars = {
+            spaceId: this.state.id,
+            startAt: this.state.startAt,
+            endAt: this.state.endAt,
+            price: this.state.price,
+            userId: localStorage.getItem('uid')
+            
+          }
+          var opts = {
+            // custom fetch options
+          }
+
+
+          fetch(query, queryVars, opts).then(function (results) {
+            if (results.errors) {
+              //...
+              return
+            }
+            //var BlogCategory = results.data.BlogCategory
+
+            toast('Inquiry Success', { type: toast.TYPE.SUCCESS, autoClose: 2000 }, setTimeout("location.href = '/space-list';",2000))
+            //...
+          })
+
+
+  } 
+   
+
+  ///////////////////////
   
 
 renderGaleri(){
@@ -365,7 +434,7 @@ renderNearby(){
 
 
 		 <div className="container padding-bottom-50">
-
+       <ToastContainer autoClose={2000} />
 		   <div className="row">
            <div className="col-md-12">
                 {this.renderGaleri()}
@@ -533,23 +602,24 @@ renderNearby(){
 								</div>
 
 								<div className="col-lg-12" style={{height:'50px'}}>
-									<Select
-                        name="areaId"
-                        placeholder="Harga Sewa"
-                        value={this.state.areaId}
-                        onChange={this.handleChangez}
-                        options={[
-                          { value: this.state.price1, label: 'Rp. ' + this.state.price1 + ' / Hari' },
-                           { value: this.state.price7, label: 'Rp. ' + this.state.price7 + ' / Minggu' },
-                            { value: this.state.price30, label: 'Rp. ' + this.state.price30 + ' / Bulan' },
-                        ]}
-                      />
+								
+                       <select id="select" value={this.state.price}  name="price" className="chosen-select-no-single"  onChange={(e) => this.setState({price: e.target.value})}>
+                        
+                      <option>Pilih Harga</option>
+                      <option value={this.state.price1 }>Rp. {this.state.price1 } / Hari</option>
+                      <option value={this.state.price7 }>Rp. {this.state.price7 } / Minggu</option>
+                       <option value={this.state.price30 }>Rp. {this.state.price30 } / Bulan</option>
+                      
+                       </select>
 								</div>
 								
 
 				</div>
 
-				<a href="pages-booking.html" className="button book-now fullwidth margin-top-25">Send Enquiry</a>
+        {this.state.startAt && this.state.endAt && this.state.price &&
+
+				<a onClick={this.onUpdate} className="button book-now fullwidth margin-top-25" style={{color:'#fff'}}>Send Enquiry</a>
+      }
 			</div>
 			
                             

@@ -25,7 +25,7 @@ class Home extends Component {
      <div>
       
       <Banner />
-       <Partner />
+
       <Area />
       <Popular />
       <How />

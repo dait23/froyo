@@ -24,7 +24,7 @@ renderImage(){
     }else{
 
       return(
-        <Image cloudName={Cloudinary_Name} publicId={this.props.hit.imageId} crop="thumb"  width="150"  alt={this.props.hit.name}/>
+        <Image cloudName={Cloudinary_Name} publicId={this.props.hit.imageId} crop="thumb"  width="400"  alt={this.props.hit.name}/>
 
       )
     }

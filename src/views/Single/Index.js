@@ -587,10 +587,11 @@ renderDes(){
 
 						</div>
 
-						<h3 className="listing-desc-headline margin-top-60 margin-bottom-30">Street Map</h3>
+						
+         <h3 className="listing-desc-headline margin-top-60 margin-bottom-30">Street View</h3>
 
-					<div id="singleListing Map-container">
-						<div id="singleListingMap">
+          <div id="singleListing Map-container">
+            <div id="singleListingMap">
 
                        <Street
 
@@ -599,10 +600,11 @@ renderDes(){
                         name={this.state.name}
                        />
 
-                      
 
-						</div></div>
-						
+
+            </div>
+					
+						 </div>
 						
 					</div>
 
@@ -648,54 +650,14 @@ renderDes(){
 		
 							<div className="row with-forms  margin-top-0">
 
-								<div className="col-lg-6 col-md-12">
-                <DayPickerInput 
-                formatDate={formatDate}
-                 parseDate={parseDate}
-                   format="LL"
-                  placeholder="Mulai"
-                  dayPickerProps={{
-                    locale: 'id',
-                    localeUtils: MomentLocaleUtils,
-                  }}
+							
+							
 
-                onDayChange={this.handleChange} />
-								</div>
-
-								
-								<div className="col-lg-6 col-md-12">
-
-                 <DayPickerInput 
-                formatDate={formatDate}
-                 parseDate={parseDate}
-                   format="LL"
-                  placeholder="Berakhir"
-                  dayPickerProps={{
-                    locale: 'id',
-                    localeUtils: MomentLocaleUtils
-                  }}
-
-                onDayChange={this.handleChangex} />
-									
-								</div>
-
-								<div className="col-lg-12" style={{height:'50px'}}>
-									<Select
-                        name="areaId"
-                        placeholder="Harga Sewa"
-                        value={this.state.areaId}
-                        onChange={this.handleChangez}
-                        options={[
-                          { value: 'one', label: 'Rp.' },
-                          { value: 'two', label: 'Rp.' },
-                        ]}
-                      />
-								</div>
 								
 
 				</div>
 
-				<a href="pages-booking.html" className="button book-now fullwidth margin-top-25">Send Enquiry</a>
+		
 			</div>
 			
                             

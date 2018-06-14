@@ -44,7 +44,7 @@ class Banner extends Component {
 				<div className="row">
 					<div className="col-md-12">
 						<h2>Cari Lapak Jualan untuk Usahamu</h2>
-						<h4>Expolore top-rated attractions, activities and more</h4>
+						<h4>Sewa lapak di Mall, Cafe, Gedung perkantoran, Supermarket untuk kegiatan open table & jualan apa saja!</h4>
 
 						<div className="main-search-input">
 
@@ -70,7 +70,7 @@ class Banner extends Component {
 								</select>
 							</div>
 
-							<button className="button" >Search</button>
+							<button className="button" >Cari Ruangan</button>
 
 						</div>
 					</div>

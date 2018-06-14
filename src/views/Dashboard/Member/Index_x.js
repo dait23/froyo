@@ -223,7 +223,40 @@ class DashboardMember extends Component {
           <div className="dashboard-list-box with-icons margin-top-20">
             <h4>Recent Activities</h4>
             <ul>
-              
+              <li>
+                <i className="list-box-icon sl sl-icon-layers"></i> Your listing <strong><a href="#">Hotel Govendor</a></strong> has been approved!
+                <a href="#" className="close-list-item"><i className="fa fa-close"></i></a>
+              </li>
+
+              <li>
+                <i className="list-box-icon sl sl-icon-star"></i> Kathy Brown left a review <div className="numerical-rating" data-rating="5.0"></div> on <strong><a href="#">Burger House</a></strong>
+                <a href="#" className="close-list-item"><i className="fa fa-close"></i></a>
+              </li>
+
+              <li>
+                <i className="list-box-icon sl sl-icon-heart"></i> Someone bookmarked your <strong><a href="#">Burger House</a></strong> listing!
+                <a href="#" className="close-list-item"><i className="fa fa-close"></i></a>
+              </li>
+
+              <li>
+                <i className="list-box-icon sl sl-icon-star"></i> Kathy Brown left a review <div className="numerical-rating" data-rating="3.0"></div> on <strong><a href="#">Airport</a></strong>
+                <a href="#" className="close-list-item"><i className="fa fa-close"></i></a>
+              </li>
+
+              <li>
+                <i className="list-box-icon sl sl-icon-heart"></i> Someone bookmarked your <strong><a href="#">Burger House</a></strong> listing!
+                <a href="#" className="close-list-item"><i className="fa fa-close"></i></a>
+              </li>
+
+              <li>
+                <i className="list-box-icon sl sl-icon-star"></i> John Doe left a review <div className="numerical-rating" data-rating="4.0"></div> on <strong><a href="#">Burger House</a></strong>
+                <a href="#" className="close-list-item"><i className="fa fa-close"></i></a>
+              </li>
+
+              <li>
+                <i className="list-box-icon sl sl-icon-star"></i> Jack Perry left a review <div className="numerical-rating" data-rating="2.5"></div> on <strong><a href="#">Tom's Restaurant</a></strong>
+                <a href="#" className="close-list-item"><i className="fa fa-close"></i></a>
+              </li>
             </ul>
           </div>
         </div>
@@ -235,7 +268,53 @@ class DashboardMember extends Component {
             <h4>Invoices</h4>
             <ul>
               
-             
+              <li><i className="list-box-icon sl sl-icon-doc"></i>
+                <strong>Professional Plan</strong>
+                <ul>
+                  <li className="unpaid">Unpaid</li>
+                  <li>Order: #00124</li>
+                  <li>Date: 20/07/2017</li>
+                </ul>
+                <div className="buttons-to-right">
+                  <a href="dashboard-invoice.html" className="button gray">View Invoice</a>
+                </div>
+              </li>
+              
+              <li><i className="list-box-icon sl sl-icon-doc"></i>
+                <strong>Extended Plan</strong>
+                <ul>
+                  <li className="paid">Paid</li>
+                  <li>Order: #00108</li>
+                  <li>Date: 14/07/2017</li>
+                </ul>
+                <div className="buttons-to-right">
+                  <a href="dashboard-invoice.html" className="button gray">View Invoice</a>
+                </div>
+              </li>
+
+              <li><i className="list-box-icon sl sl-icon-doc"></i>
+                <strong>Extended Plan</strong>
+                <ul>
+                  <li className="paid">Paid</li>
+                  <li>Order: #00097</li>
+                  <li>Date: 10/07/2017</li>
+                </ul>
+                <div className="buttons-to-right">
+                  <a href="dashboard-invoice.html" className="button gray">View Invoice</a>
+                </div>
+              </li>
+              
+              <li><i className="list-box-icon sl sl-icon-doc"></i>
+                <strong>Basic Plan</strong>
+                <ul>
+                  <li className="paid">Paid</li>
+                  <li>Order: #00091</li>
+                  <li>Date: 30/06/2017</li>
+                </ul>
+                <div className="buttons-to-right">
+                  <a href="dashboard-invoice.html" className="button gray">View Invoice</a>
+                </div>
+              </li>
 
             </ul>
           </div>
