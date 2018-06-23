@@ -1,0 +1,82 @@
+import React, {Component} from 'react';
+
+import { Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
+import {Cloudinary_Name, No_Image, No_Thumb} from '../Api/';
+import {Image} from 'cloudinary-react'
+
+
+
+
+
+
+class List extends Component {
+
+renderImage(){
+
+    if(this.props.hit.imageId == ''){
+
+       return(
+           <img src={No_Thumb} alt={this.props.hit.name}/>
+
+        )
+
+    }else{
+
+      return(
+        <Image cloudName={Cloudinary_Name} publicId={this.props.hit.imageId} crop="thumb"  width="400"  alt={this.props.hit.name}/>
+
+      )
+    }
+
+  }
+
+
+  
+
+
+  render() {
+    return (
+
+    
+
+
+          <div className="col-lg-4 col-md-12 margin-bottom-30">
+                      <a href={`/space/detail/${this.props.hit.slug}`} className="listing-item-container">
+                        <div className="listing-item">
+                            {this.renderImage()}
+
+                            <div className="listing-item-details">
+                            <ul>
+                              <li>{this.props.hit.area.name}</li>
+                            </ul>
+                          </div>
+
+                          <div className="listing-badge now-open">Now Open</div>
+                          
+                          <div className="listing-item-content">
+                            <span className="tag">{this.props.hit.category.name}</span>
+                            <h3>{this.props.hit.name}</h3>
+                           
+                          </div>
+                        
+                        </div>
+                        <div>
+                          <div className="rating-counter" style={{padding:'15px 20px'}}>Rp. {this.props.hit.price} / day </div>
+                        </div>
+                      </a>
+                    </div>
+
+
+
+      
+    )
+  }
+}
+
+List.propTypes = {
+  hit: PropTypes.object,
+  refresh: PropTypes.func
+};
+
+export default List;

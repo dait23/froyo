@@ -38,7 +38,7 @@ const Home = Loadable({
 });
 
 const Listing = Loadable({
- loader: () => fakeDelay(500).then(() => import('./views/Listing/')),
+ loader: () => fakeDelay(500).then(() => import('./views/Listing/ListingMap')),
   loading: Loading,
   timeout: 10000, // 10 second
 });
@@ -50,7 +50,7 @@ const ListingArea = Loadable({
 });
 
 const ListingMap = Loadable({
- loader: () => fakeDelay(500).then(() => import('./views/Listing/ListingMap')),
+ loader: () => fakeDelay(500).then(() => import('./views/Listing/')),
   loading: Loading,
   timeout: 10000, // 10 second
 });
